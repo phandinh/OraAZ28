@@ -1,0 +1,31 @@
+create table test.tab7(id number, name varchar2(100)) tablespace user;
+
+grant unlimited tablespace to test;
+
+
+declare
+    n number :=0;
+begin
+    for n in 1 .. 10000 
+    loop
+        insert into test.tab7 values(n, 'Binh ' || n);
+        commit; 
+        --n := n+1;
+    end loop;
+end;
+
+create table test.tab7(id number, name varchar2(100)) tablespace system;
+
+grant unlimited tablespace to test;
+
+
+declare
+    n number :=0;
+begin
+    for n in 1 .. 10000 
+    loop
+        insert into test.tab7 values(n, 'Binh ' || n);
+        commit; 
+        --n := n+1;
+    end loop;
+end;

@@ -1,0 +1,103 @@
+DỰNG LAB, CÁC CÔNG CỤ CHUẨN BỊ HỌC 0. Vào nhóm Facebook: https://www.facebook.com/groups/oaz28 
+1. Mọi người dựng Oracle Database 19c trên máy ảo VMWARE theo link này: https://www.tranvanbinh.vn/2021/10/huong-dan-dung-may-ao-lab-oracle.html Lab+ bí kíp: https://drive.google.com/drive/folders/1xuc-trS839VjRoCyL4KvNGLIrafw6Ag_
+2. Ngoài ra cài đặt thêm các công cụ khác là Oracle Client 19c (bản 64 bit), TOAD, SecureSCT, Putty, WinSCP, tất cả công cụ ở đây: https://drive.google.com/drive/folders/18nIce5fRWOr1C4N8W8pkEzJno1nwqqpj?fbclid=IwAR24h-18-UCObS_xFxYusXSsoDRl6xrpi-zqCl3ccoQienFjIsflQDiyo-A 
+3. VÀO HỌC TRƯỚC CÁC KHÓA HỌC TRÊN UNICA: * Workshop 1: https://bit.ly/2AhpUeY * Linux 21h: https://bit.ly/31wwolr (Tạo account sau đó vào lại các link trên) Khó khăn gì mọi người post lên đây để được hỗ trợ nhé.i
+
+
+1. Cài đặt và cấu hình
+
+Preparation:
+https://www.tranvanbinh.vn/2020/11/quy-trinh-kiem-tra-tiep-nhan-oracle_20.html
+
+SELECT thread#, group#, members FROM v$log ORDER BY thread#, group#;
+
+
+20/12/2025
+#### Hien thi data tren sql/plus  #####
+
+SET LINESIZE 200;
+SET PAGESIZE 100;
+
+COLUMN tablespace_name FORMAT A20;
+COLUMN status FORMAT A10;
+COLUMN contents FORMAT A10;
+
+SELECT tablespace_name, status, contents
+FROM dba_tablespaces;
+
+
+
+-------------------------------------------------------------------------------------
+Kho tai nguyen cua hoc vien tran van binh
+
+KHO TÀI NGUYÊN QUẢN TRỊ ORACLE DATABASE, SYSTEM:
+
+1. KIẾN THỨC, KINH NGHIỆM, SCRIPTS:
+
+* Tài liệu FULL của Oracle: https://www.tranvanbinh.vn/2022/10/oc-tai-lieu-chuan-oracle-online.html?m=1
+
+* Nhập môn: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-nhap-mon.html
+
+* SQL, PL/SQL: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-sql-plsql.html
+
+* ADMIN: https://www.tranvanbinh.vn/p/admin.html
+
+* TUNNING: https://www.tranvanbinh.vn/p/admin.html
+
+* RAC: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle-rac.html
+
+* 12c: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle.html
+
+* DB khác: https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-db-khac.html
+
+* Exadata: https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-exadata.html
+
+* Đồng bộ GoldeGate, DataGuard: https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-ong-bo-du-lieu.html
+
+* Unix, Linux: https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-system.html
+
+* WebLogic: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle-weblogic.html
+
+* Đào tạo: https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-ao-tao.html
+
+2.LAB/BỘ CÀI ĐẶT
+
+2.1. Mọi người dựng lab máy ảo theo link này nhé:
+Nên dùng Lab 19c (nếu RAM PC >=8GB)
+https://www.tranvanbinh.vn/2021/10/huong-dan-dung-may-ao-lab-oracle.html
+
+Nếu không chạy được Lab 19c (hay giật, lag) thì dùng Lab 12c: https://www.tranvanbinh.vn/2020/06/huong-dung-may-ao-virtualbox-cho-lab.html
+
+2.2. Ngoài ra cài đặt thêm các công cụ khác là Oracle Client 12c, TOAD, SecureSCT, Putty, WinSCP, tất cả công cụ ở đây:
+https://drive.google.com/drive/folders/1lAJSiGhsKA6F20LA9JMv8Py2o_kvS-hy?usp=sharing
+
+2.3. Các bộ cài khác (bộ cài, patch OS, Database, Weblogic):
+https://drive.google.com/drive/folders/1kvlkTuIfh61zverXjiHaXHXDS2t6yBEK?usp=sharing
+
+3.DUMP THI OCA/OCP
+
+https://drive.google.com/drive/folders/124xt9vkl8ClKk_BBe9sGMOuoD85YSbFe?usp=sharing
+
+Link đọc online:
+
+* SQL (1z0- 071): https://drive.google.com/file/d/1kSjEVBfUfkfb09OO07jbQvVC70V9Xw0U/view
+(tham khảo thêm 1z0-061: https://drive.google.com/file/d/1ZidSw0g7HMuFyrkmmArQiNNpUN8N9ZqE/view)
+
+* Admin 1 12c (1z0-062): https://drive.google.com/file/d/1UaVzkgqljpVdnmN-ALeliCZDvPpD5x54/view
+
+* Admin 2 (1Z0-063): Ôn 2 dump sau:
+
+- 1z0-053 (11g) (693q): https://drive.google.com/file/d/1NyEvZ4b-HuLz7klkd4VriwZ0HyVwS5VE/view
+
+- Upgrade OCP 11g lên 12c (1z0-060):
+https://drive.google.com/file/d/1mawcS7NVfWXCKeWqxTFOpkRpcdfi3eGf/view
+
+- 12c (1z0-083): https://drive.google.com/file/d/1UAS9AY6N-_fDo8MQFHgPShn0bXXmRGJ8/view
+
+- Ngoài ra thêm dump mới nhất từ các trang dump collection, ví dụ: https://www.dumpscollection.net/pdf/1Z0-063/oracle.exambible.1z0-063.rapidshare.2019-nov-30.by.lynn.169q.vce.pdf.html
+
+Link tham khảo thông tin chứng chỉ từ hãng Oracle:
+
+https://education.oracle.com/oracle-database-12c-administrator-certified-associate/trackp_248
+
+https://education.oracle.com/x/trackp_249

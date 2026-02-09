@@ -1,0 +1,12 @@
+[oracle@linux7 ~]$ sqlplus / as sysdba
+SQL> alter user sys identified by oracl;
+
+
+[oracle@linux7 ~]$ sqlplus / as sysdba
+SQL> alter user sys identified by oracl;
+TOAD F4 Descrition obj, Ctrl+Enter Current, F9 Current, F5 Script
+
+[oracle@linux7 ~]$ sqlplus / as sysdba
+SQL> alter user sys identified by oracl;
+TOAD F4 Descrition obj, Ctrl+Enter Current, F9 Current, F5 Script
+tail -1000f /var/log/messages \n

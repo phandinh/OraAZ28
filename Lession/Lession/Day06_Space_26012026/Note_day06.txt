@@ -1,0 +1,64 @@
+https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html
+
+https://www.tranvanbinh.vn/2020/12/giai-phap-nen-du-lieu-lam-giam-dung.html
+
+https://www.tranvanbinh.vn/2020/07/quan-tri-tablespace-oracle.html
+
+https://www.tranvanbinh.vn/2023/02/lenh-alter-table-shrink-space-online.html
+
+https://www.tranvanbinh.vn/2019/11/thu-tuc-resize-lai-datafile.html
+
+https://www.tranvanbinh.vn/2021/09/cac-giai-phap-thu-hoi-dung-luong-cua.html
+
+-------------------------------------------------------------------------------
+Videos:
+
+
+Buổi 06- 7.Storage, 8.Space
+
+VIDEO
+Buổi 06 - Trước buổi học https://youtu.be/yPPMcsTeJ14
+Buổi 06 - 07.Quản trị lưu trữ (storage)  https://youtu.be/OQtuyCWSmLE
+Buổi 06 - 07.Quản trị lưu trữ (storage) - Tóm tắt, Tài liệu https://youtu.be/tPv03P8oEw8
+Buổi 06 - 07.Quản lý lưu trữ (storage)_Tài liệu 12c/19c https://youtu.be/-uChwcmqzBE
+Buổi 06 - 07.Quản trị lưu trữ (storage) - Tài liệu OMF  https://youtu.be/P6cZ1EyFjAo
+Buổi 06- 08.Quản trị không gian lưu trữ (Space) https://youtu.be/QixamKkb3JM
+Buổi 06- 08.Quản trị không gian lưu trữ (Space) - Tài liệu https://youtu.be/q9aoIcTXL9I
+
+
+BÀI TẬP
+7.Tablespace
+	○ Tạo tablespace DATA,  INDX, DATA2026, INDX2026, DATA_NGHIEPVU, INDX_NGHIEPVU, DUMP, LOB, DATA_LOG, INDX_LOG, dung lượng mỗi datafile là 10MB, extend  để lưu dữ liệu danh mục và dữ liệu theo năm sau này
+	○ Thay đổi dung lượng của datafile lên 20MB và autoextend on next 20m, unlimited maxsize
+8.Space
+	1. Tóm tắt lại những kiến thức bạn học được từ bài Quản lý không gian lưu trữ
+	2. Xóa bằng Delete để thu hồi dung lượng bằng cách nào?
+	○ Thêm ít nhất 1.000.000 dòng dữ liệu vào bảng, sau đó kiểm tra dung lượng bảng (dùng lệnh create table … as select * from dba_objects, insert into xxx select * from dba_objects)., tham khảo: https://www.tranvanbinh.vn/2022/03/sinh-du-lieu-ngau-nhien-e-thuc-hanh.html, sau đó kiểm tra dung lượng bảng từ dba_segments
+	○ Delete 500.000 bản ghi
+	○ Shrink lại bảng (câu lệnh ALTER TABLE employees SHRINK SPACE COMPACT) và check lại dung lượng  (dùng dba_segments)
+	3. Xóa bằng truncate thu hồi dung lượng bằng cách nào?
+	○ Thêm ít nhất 1.000.000 dòng dữ liệu vào bảng, sau đó kiểm tra dung lượng bảng (dùng lệnh create table … as select * from dba_objects, insert into xxx select * from dba_objects). 
+	○ Truncate table
+	○ Check lại dung lượng (dùng dba_segments)
+
+THAM KHẢO
+
+7.TABLESPACE
+https://www.tranvanbinh.vn/2020/07/quan-tri-tablespace-oracle.html
+https://www.tranvanbinh.vn/2021/02/xu-ly-khi-u01-u02-chua-datafile-ay-99.html
+https://www.tranvanbinh.vn/2021/02/cach-xu-ly-loi-ora-19815-warning.html
+https://www.tranvanbinh.vn/2021/04/job-tu-ong-xoa-log-file-trong-oracle.html
+https://www.tranvanbinh.vn/2021/02/xu-ly-khi-u01-u02-chua-datafile-ay-99.html
+https://www.tranvanbinh.vn/2021/01/quy-trinh-kiem-tra-nhanh-oracle.html
+https://www.tranvanbinh.vn/2021/10/thu-tuc-add-ia-vao-asm-diskgroup-trong.html
+https://www.tranvanbinh.vn/2020/07/quy-trinh-add-o-ia-moi-vao-diskgroup.html
+https://www.tranvanbinh.vn/2018/08/thu-tuc-add-ia-vao-diskgroup-data-trong.html
+https://www.tranvanbinh.vn/2020/11/script-resize-datafile.html
+https://www.tranvanbinh.vn/2018/09/chuyen-du-lieu-tu-tablespace-indx-sang.html
+https://www.tranvanbinh.vn/2020/11/asmchuyen-du-lieu-tu-phan-vung-data.html
+https://www.tranvanbinh.vn/2018/09/chuyen-du-lieu-tu-tablespace-khac-sang.html
+https://www.tranvanbinh.vn/2020/11/thu-tuc-chuyen-du-lieu-sang-phan-vung.html
+https://www.tranvanbinh.vn/p/admin.html
+
+Chi tiết ở tại Facebook Group
+

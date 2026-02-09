@@ -1,0 +1,12 @@
+https://www.tranvanbinh.vn/2019/11/khi-nao-can-tao-index.html
+https://www.tranvanbinh.vn/2020/01/khuyen-cao-quy-hoach-luu-tru-tablespace.html
+
+https://www.tranvanbinh.vn/2022/02/khi-nao-can-tao-partition-cho-csdl.html
+
+https://www.tranvanbinh.vn/2020/12/chuyen-bang-non-partition-sang.html
+
+https://www.tranvanbinh.vn/2021/02/tao-index-bang-core-bang-cuc-lon-2-15.html
+
+https://www.tranvanbinh.vn/2022/11/database-khung-quan-ly-nhu-nao.html
+
+https://www.tranvanbinh.vn/p/admin.html (Muc 7,8)

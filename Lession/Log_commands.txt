@@ -1,0 +1,95 @@
+1) SERVER A — Backup PDB (tạo file backup)
+Step A1 — Xác nhận tên PDB nguồn
+Sao chép mã
+Sql
+sqlplus / as sysdba
+SELECT name, open_mode FROM v$pdbs;
+Step A2 — Tạo thư mục backup (filesystem)
+Sao chép mã
+Bash
+mkdir -p /backup/PDB_APP
+chown -R oracle:oinstall /backup/PDB_APP
+chmod 750 /backup/PDB_APP
+Step A3 — RMAN backup PDB + archivelog
+Sao chép mã
+Bash
+rman target /
+Sao chép mã
+Rman
+RUN {
+  ALLOCATE CHANNEL c1 DEVICE TYPE DISK;
+  ALLOCATE CHANNEL c2 DEVICE TYPE DISK;
+
+  BACKUP AS COMPRESSED BACKUPSET PLUGGABLE DATABASE PDB_APP
+    FORMAT '/backup/PDB_APP/PDB_APP_%d_%T_%U.bkp';
+
+  BACKUP AS COMPRESSED BACKUPSET ARCHIVELOG ALL
+    FORMAT '/backup/PDB_APP/ARC_%d_%T_%U.bkp';
+
+  RELEASE CHANNEL c1;
+  RELEASE CHANNEL c2;
+}
+Giải thích nhanh:
+BACKUP PLUGGABLE DATABASE PDB_APP: chỉ backup datafile thuộc PDB.
+ARCHIVELOG ALL: để khi duplicate sang B có thể recover đến mức log có sẵn.
+Step A4 — Kiểm tra backup đã ra file
+Sao chép mã
+Bash
+ls -lh /backup/PDB_APP
+2) Copy backup từ A sang B
+Ví dụ:
+Sao chép mã
+Bash
+rsync -avh /backup/PDB_APP/ oracle@serverB:/backup/PDB_APP/
+3) SERVER B — Restore/đưa PDB vào CDB đã có sẵn (duplicate)
+Step B1 — Đảm bảo đang ở CDB$ROOT của CDB target
+Sao chép mã
+Sql
+sqlplus / as sysdba
+SHOW CON_NAME;
+-- nếu chưa phải CDB$ROOT:
+ALTER SESSION SET CONTAINER = CDB$ROOT;
+Step B2 — Chuẩn bị thư mục (filesystem)
+Sao chép mã
+Bash
+mkdir -p /backup/PDB_APP
+mkdir -p /u01/app/oracle/aux
+chown -R oracle:oinstall /backup/PDB_APP /u01/app/oracle/aux
+chmod 750 /backup/PDB_APP /u01/app/oracle/aux
+Step B3 — Vào RMAN trên server B (target là CDB đang chạy)
+Sao chép mã
+Bash
+export ORACLE_SID=CDB1     # đổi đúng SID CDB của server B
+rman target /
+Step B4 — Catalog backup (bắt buộc vì backup copy từ server khác qua)
+Sao chép mã
+Rman
+CATALOG START WITH '/backup/PDB_APP/';
+Step B5 — Duplicate PDB vào CDB đã có
+Sao chép mã
+Rman
+DUPLICATE PLUGGABLE DATABASE PDB_APP
+  TO PDB_APP_DR
+  BACKUP LOCATION '/backup/PDB_APP'
+  AUXILIARY DESTINATION '/u01/app/oracle/aux'
+  NOFILENAMECHECK;
+Giải thích nhanh:
+PDB_APP = PDB nguồn (trong backup)
+TO PDB_APP_DR = tên PDB mới tạo trong CDB server B
+BACKUP LOCATION = nơi chứa file .bkp
+AUXILIARY DESTINATION = chỗ tạm để RMAN dựng auxiliary trong quá trình duplicate
+NOFILENAMECHECK = cho phép restore sang host khác (hay dùng khi cross-host)
+Step B6 — Open PDB và set tự open sau reboot
+Sao chép mã
+Sql
+ALTER PLUGGABLE DATABASE PDB_APP_DR OPEN;
+ALTER PLUGGABLE DATABASE PDB_APP_DR SAVE STATE;
+Step B7 — Kiểm tra
+Sao chép mã
+Sql
+SELECT name, open_mode FROM v$pdbs;
+Lưu ý hay vướng
+Nếu job duplicate báo thiếu chỗ trống: kiểm tra df -h (đặc biệt /u01 và /backup)
+Nếu PDB nguồn trên server A không phải PDB_APP: thay đúng tên PDB nguồn trong 2 chỗ:
+BACKUP PLUGGABLE DATABASE <PDB_SRC>
+DUPLICATE PLUGGABLE DATABASE <PDB_SRC> TO PDB_APP_DR

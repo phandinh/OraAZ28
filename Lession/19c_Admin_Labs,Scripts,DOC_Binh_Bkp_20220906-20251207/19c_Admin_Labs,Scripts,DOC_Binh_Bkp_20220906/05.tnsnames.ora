@@ -1,0 +1,30 @@
+db19c_cdb_service=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.182.128)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = orcl)
+    )
+  )
+
+db19c_cdb_SID=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.182.128)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = orcl)
+    )
+  )  
+  
+db19c_pdb1=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.182.128)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = pdb1)
+    )
+  )
+  

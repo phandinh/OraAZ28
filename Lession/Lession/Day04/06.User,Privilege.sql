@@ -1,0 +1,89 @@
+﻿-- 1.TAO USER COMMON C##OAZ13
+create user c##oaz13 identified by oracle;
+
+-- Tạo xong ấn F4 kiểm tra lại
+
+grant connect, resource, dba to c##oaz13 container=all;
+
+-- GRANT
+-- System Privilege
+select * from dba_sys_privs where grantee ='C##OAZ13';
+
+-- Object privilege
+select * from dba_tab_privs where grantee='C##OAZ13';
+
+-- Role
+select * from dba_role_privs where grantee='C##OAZ13';
+
+-- Session
+select * from session_privs;
+
+select * from session_roles;
+
+-- Gan quyen
+grant select on SYS.FGA_LOG$ to c##oaz13;
+
+grant alter any procedure to c##oaz13;
+
+
+-- Quyen view moi package:
+        
+grant SELECT ANY DICTIONARY to c##oaz13;
+
+grant debug any procedure to c##oaz13;
+
+--REVOKE
+revoke debug any procedure from c##oaz13;
+
+
+-- 2.TAO USER LOCAL TRONG PDB1
+-- Vao c##az13 TNS db19c_pdb1 de tao:
+create user oaz13 identified by oracle;
+
+grant connect, resource, dba to oaz13;
+
+-- Tuong tu
+
+-- PROFILE
+create PROFILE "PROFILE_USER" LIMIT
+  SESSIONS_PER_USER UNLIMITED
+  CPU_PER_SESSION UNLIMITED
+  CPU_PER_CALL UNLIMITED
+  CONNECT_TIME UNLIMITED
+  IDLE_TIME UNLIMITED
+  LOGICAL_READS_PER_SESSION UNLIMITED
+  LOGICAL_READS_PER_CALL UNLIMITED
+  COMPOSITE_LIMIT UNLIMITED
+  PRIVATE_SGA UNLIMITED
+  FAILED_LOGIN_ATTEMPTS UNLIMITED
+  INACTIVE_ACCOUNT_TIME UNLIMITED
+  PASSWORD_LIFE_TIME UNLIMITED
+  PASSWORD_REUSE_TIME UNLIMITED
+  PASSWORD_REUSE_MAX UNLIMITED
+  PASSWORD_LOCK_TIME UNLIMITED
+  PASSWORD_GRACE_TIME UNLIMITED
+  PASSWORD_VERIFY_FUNCTION Default;
+  
+create PROFILE "PROFILE_APP" LIMIT
+  SESSIONS_PER_USER UNLIMITED
+  CPU_PER_SESSION UNLIMITED
+  CPU_PER_CALL UNLIMITED
+  CONNECT_TIME UNLIMITED
+  IDLE_TIME UNLIMITED
+  LOGICAL_READS_PER_SESSION UNLIMITED
+  LOGICAL_READS_PER_CALL UNLIMITED
+  COMPOSITE_LIMIT UNLIMITED
+  PRIVATE_SGA UNLIMITED
+  FAILED_LOGIN_ATTEMPTS UNLIMITED
+  INACTIVE_ACCOUNT_TIME UNLIMITED
+  PASSWORD_LIFE_TIME UNLIMITED
+  PASSWORD_REUSE_TIME UNLIMITED
+  PASSWORD_REUSE_MAX UNLIMITED
+  PASSWORD_LOCK_TIME UNLIMITED
+  PASSWORD_GRACE_TIME UNLIMITED
+  PASSWORD_VERIFY_FUNCTION Default;
+  
+ALTER USER OAZ13
+ PROFILE PROFILE_USER;
+
+

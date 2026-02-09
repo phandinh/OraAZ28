@@ -1,0 +1,44 @@
+ORCL =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.101)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = ORCL)
+    )
+  )
+  
+  
+ORCL_SN =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.101)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = ORCL)
+    )
+  ) 
+  
+PDB1 =
+(DESCRIPTION =
+(ADDRESS_LIST =
+  (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.101)(PORT = 1521))
+)
+(CONNECT_DATA =
+  (SERVICE_NAME = PDB1)
+)
+  
+
+ORCL_RAC =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.104)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.105)(PORT = 1521))
+      (LOAD_BALANCE = yes)
+      (FAILOVER = yes)
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME=DBAVIET)(failover_mode=(type=session)(method=basic))
+    )
+)
+  

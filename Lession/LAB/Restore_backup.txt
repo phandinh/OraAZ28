@@ -1,0 +1,49 @@
+rman target / \
+  cmdfile=/home/oracle/backup/level0.rman \
+  log=/home/oracle/backup/logs/backup_full_$(date +%Y%m%d_%H%M).log
+
+
+
+
+CROSSCHECK BACKUP;
+DELETE NOPROMPT EXPIRED BACKUP;
+DELETE NOPROMPT OBSOLETE;
+CROSSCHECK ARCHIVELOG ALL;
+delete noprompt expired archivelog all;
+BACKUP AS COMPRESSED BACKUPSET DEVICE TYPE DISK INCREMENTAL LEVEL 0 DATABASE FORMAT '/home/oracle/backup/level0/dbaviet_%T_%d_%u_%s' FILESPERSET 10 MAXSETSIZE 80G TAG LEVEL0; 
+sql 'ALTER SYSTEM ARCHIVE LOG CURRENT';
+BACKUP AS COMPRESSED BACKUPSET DEVICE TYPE DISK ARCHIVELOG ALL FORMAT '/home/oracle/backup/level0/arc_%T_%d_%u_%s_%U' FILESPERSET 10 TAG ARCH;
+DELETE ARCHIVELOG UNTIL TIME 'SYSDATE-2';
+#sql ' BEGIN TEST_SEND_MAIL_BACKUP; END; ';
+}
+
+
+
+-rw-r-----. 1 oracle oinstall 140441088 Jan 24 23:00 arc_20260125_ORCL_0i4ep4dh_18_0i4ep4dh_1_1
+-rw-r-----. 1 oracle oinstall  18841600 Jan 24 23:00 auto_dbaviet_ctlc-1611489315-20260125-01
+-rw-r-----. 1 oracle oinstall  18841600 Jan 24 23:01 auto_dbaviet_ctlc-1611489315-20260125-02
+-rw-r-----. 1 oracle oinstall 311083008 Jan 24 23:01 dbaviet_20260125_ORCL_0e4ep48i_14
+-rw-r-----. 1 oracle oinstall 107814912 Jan 24 23:01 dbaviet_20260125_ORCL_0f4ep49l_15
+-rw-r-----. 1 oracle oinstall 129327104 Jan 24 23:02 dbaviet_20260125_ORCL_0g4ep4a4_16
+
+
+RUN {
+SET NEWNAME FOR DATABASE TO '/u01/app/oracle/oradata/ORCL/datafile/%b';
+RESTORE DATABASE;
+SWITCH DATAFILE ALL;
+}
+
+
+datafile 3 must be restored from backup older than SCN 2509201
+
+2509084
+
+datafile 1 must be restored from backup older than SCN 2509211
+2509084
+
+
+/u01/app/oracle/product/19.0.0/dbhome_1/dbs/initCDB_ORCL_02.ora
+
+
+
+ mv o1_mf_sysaux_mtbp81ff_.dbf /dev/

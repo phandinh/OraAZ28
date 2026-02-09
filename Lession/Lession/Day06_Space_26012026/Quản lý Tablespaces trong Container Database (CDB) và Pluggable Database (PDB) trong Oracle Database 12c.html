@@ -1,0 +1,3073 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html -->
+<html class="v2" dir="ltr" lang="vi" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+<link href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/335934321-css_bundle_v2.css" rel="stylesheet" type="text/css">
+<!-- Business VietData tu NuongKH -->
+<meta content="yjds9cjggeon80rnwviy5jvd6upndx" name="facebook-domain-verification">
+<!-- Global site tag (gtag.js) - Google Analytics khoa hoc OraAZ -->
+<script type="text/javascript" async="" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/js"></script><script id="facebook-jssdk" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/xfbml.customerchat.js.tải xuống"></script><script async="" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/fbevents.js.tải xuống"></script><script async="" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/analytics.js.tải xuống"></script><script async="async" crossorigin="anonymous" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/f.txt"></script>
+<script async="async" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/js(1)"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YE2HH6SG7E');
+  </script>
+<meta content="z9t37fs1lrtfvf9hx59hlv0wtgelfv" name="facebook-domain-verification">
+<meta content="width=1100" name="viewport">
+
+<meta content="blogger" name="generator">
+<link href="https://www.tranvanbinh.vn/favicon.ico" rel="icon" type="image/x-icon">
+<link href="https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="TRẦN VĂN BÌNH MASTER - Atom" href="https://www.tranvanbinh.vn/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="TRẦN VĂN BÌNH MASTER - RSS" href="https://www.tranvanbinh.vn/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="TRẦN VĂN BÌNH MASTER - Atom" href="https://www.blogger.com/feeds/4187204636885547533/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="TRẦN VĂN BÌNH MASTER - Atom" href="https://www.tranvanbinh.vn/feeds/3669110001257956546/comments/default">
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+<meta content="https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html" property="og:url">
+<meta content="Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c" property="og:title">
+<meta content="Trang Web chính thức của Chuyên gia Trần Văn Bình - Oracle Database Master" property="og:description">
+<title>TRẦN VĂN BÌNH MASTER: Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c</title>
+<meta content="KfOJB6Po6osczOER746x4EKUtu26_4YmsVs4DXCTevo" name="google-site-verification">
+<!-- Global site tag (gtag.js) - Google Analytics website tranvanbinh.vn-->
+<script async="async" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/js(2)"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-51JBVJXJ7J');
+  </script>
+<style id="page-skin-1" type="text/css"><!--
+/*-----------------------------------------------
+Binh Template Style
+Name:     Picture Window
+Designer: Binh
+URL:      www.tranvanbinh.vn
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="keycolor" description="Main Color" type="color" default="#1a222a"/>
+<Variable name="body.background" description="Body Background" type="background"
+color="#242a83" default="#111111 url(//themes.googleusercontent.com/image?id=1OACCYOE0-eoTRTfsBuX1NMN9nz599ufI1Jh0CggPFA_sK80AGkIr8pLtYRpNUKPmwtEa) repeat-x fixed top center"/>
+<Group description="Page Text" selector="body">
+<Variable name="body.font" description="Font" type="font"
+default="normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="body.text.color" description="Text Color" type="color" default="#333333"/>
+</Group>
+<Group description="Backgrounds" selector=".body-fauxcolumns-outer">
+<Variable name="body.background.color" description="Outer Background" type="color" default="#296695"/>
+<Variable name="header.background.color" description="Header Background" type="color" default="transparent"/>
+<Variable name="post.background.color" description="Post Background" type="color" default="#ffffff"/>
+</Group>
+<Group description="Links" selector=".main-outer">
+<Variable name="link.color" description="Link Color" type="color" default="#336699"/>
+<Variable name="link.visited.color" description="Visited Color" type="color" default="#6699cc"/>
+<Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff"/>
+</Group>
+<Group description="Blog Title" selector=".header h1">
+<Variable name="header.font" description="Title Font" type="font"
+default="normal normal 36px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="header.text.color" description="Text Color" type="color" default="#ffffff" />
+</Group>
+<Group description="Tabs Text" selector=".tabs-inner .widget li a">
+<Variable name="tabs.font" description="Font" type="font"
+default="normal normal 15px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="tabs.text.color" description="Text Color" type="color" default="#ffffff"/>
+<Variable name="tabs.selected.text.color" description="Selected Color" type="color" default="#000000"/>
+</Group>
+<Group description="Tabs Background" selector=".tabs-outer .PageList">
+<Variable name="tabs.background.color" description="Background Color" type="color" default="transparent"/>
+<Variable name="tabs.selected.background.color" description="Selected Color" type="color" default="transparent"/>
+<Variable name="tabs.separator.color" description="Separator Color" type="color" default="transparent"/>
+</Group>
+<Group description="Post Title" selector="h3.post-title, .comments h4">
+<Variable name="post.title.font" description="Title Font" type="font"
+default="normal normal 18px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+</Group>
+<Group description="Date Header" selector=".date-header">
+<Variable name="date.header.color" description="Text Color" type="color" default="#000000"/>
+</Group>
+<Group description="Post" selector=".post">
+<Variable name="post.footer.text.color" description="Footer Text Color" type="color" default="#999999"/>
+<Variable name="post.border.color" description="Border Color" type="color" default="#dddddd"/>
+</Group>
+<Group description="Gadgets" selector="h2">
+<Variable name="widget.title.font" description="Title Font" type="font"
+default="bold normal 13px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="widget.title.text.color" description="Title Color" type="color" default="#888888"/>
+</Group>
+<Group description="Footer" selector=".footer-outer">
+<Variable name="footer.text.color" description="Text Color" type="color" default="#cccccc"/>
+<Variable name="footer.widget.title.text.color" description="Gadget Title Color" type="color" default="#aaaaaa"/>
+</Group>
+<Group description="Footer Links" selector=".footer-outer">
+<Variable name="footer.link.color" description="Link Color" type="color" default="#99ccee"/>
+<Variable name="footer.link.visited.color" description="Visited Color" type="color" default="#77aaee"/>
+<Variable name="footer.link.hover.color" description="Hover Color" type="color" default="#33aaff"/>
+</Group>
+<Variable name="content.margin" description="Content Margin Top" type="length" default="20px" min="0" max="100px"/>
+<Variable name="content.padding" description="Content Padding" type="length" default="0" min="0" max="100px"/>
+<Variable name="content.background" description="Content Background" type="background"
+default="transparent none repeat scroll top left"/>
+<Variable name="content.border.radius" description="Content Border Radius" type="length" default="0" min="0" max="100px"/>
+<Variable name="content.shadow.spread" description="Content Shadow Spread" type="length" default="0" min="0" max="100px"/>
+<Variable name="header.padding" description="Header Padding" type="length" default="0" min="0" max="100px"/>
+<Variable name="header.background.gradient" description="Header Gradient" type="url"
+default="none"/>
+<Variable name="header.border.radius" description="Header Border Radius" type="length" default="0" min="0" max="100px"/>
+<Variable name="main.border.radius.top" description="Main Border Radius" type="length" default="20px" min="0" max="100px"/>
+<Variable name="footer.border.radius.top" description="Footer Border Radius Top" type="length" default="0" min="0" max="100px"/>
+<Variable name="footer.border.radius.bottom" description="Footer Border Radius Bottom" type="length" default="20px" min="0" max="100px"/>
+<Variable name="region.shadow.spread" description="Main and Footer Shadow Spread" type="length" default="3px" min="0" max="100px"/>
+<Variable name="region.shadow.offset" description="Main and Footer Shadow Offset" type="length" default="1px" min="-50px" max="50px"/>
+<Variable name="tabs.background.gradient" description="Tab Background Gradient" type="url" default="none"/>
+<Variable name="tab.selected.background.gradient" description="Selected Tab Background" type="url"
+default="url(https://resources.blogblog.com/blogblog/data/1kt/transparent/white80.png)"/>
+<Variable name="tab.background" description="Tab Background" type="background"
+default="transparent url(https://resources.blogblog.com/blogblog/data/1kt/transparent/black50.png) repeat scroll top left"/>
+<Variable name="tab.border.radius" description="Tab Border Radius" type="length" default="10px" min="0" max="100px"/>
+<Variable name="tab.first.border.radius" description="First Tab Border Radius" type="length" default="10px" min="0" max="100px"/>
+<Variable name="tabs.border.radius" description="Tabs Border Radius" type="length" default="0" min="0" max="100px"/>
+<Variable name="tabs.spacing" description="Tab Spacing" type="length" default=".25em" min="0" max="10em"/>
+<Variable name="tabs.margin.bottom" description="Tab Margin Bottom" type="length" default="0" min="0" max="100px"/>
+<Variable name="tabs.margin.sides" description="Tab Margin Sides" type="length" default="20px" min="0" max="100px"/>
+<Variable name="main.background" description="Main Background" type="background"
+default="transparent url(https://resources.blogblog.com/blogblog/data/1kt/transparent/white80.png) repeat scroll top left"/>
+<Variable name="main.padding.sides" description="Main Padding Sides" type="length" default="20px" min="0" max="100px"/>
+<Variable name="footer.background" description="Footer Background" type="background"
+default="transparent url(https://resources.blogblog.com/blogblog/data/1kt/transparent/black50.png) repeat scroll top left"/>
+<Variable name="post.margin.sides" description="Post Margin Sides" type="length" default="-20px" min="-50px" max="50px"/>
+<Variable name="post.border.radius" description="Post Border Radius" type="length" default="5px" min="0" max="100px"/>
+<Variable name="widget.title.text.transform" description="Widget Title Text Transform" type="string" default="uppercase"/>
+<Variable name="mobile.background.overlay" description="Mobile Background Overlay" type="string"
+default="transparent none repeat scroll top left"/>
+<Variable name="startSide" description="Side where text starts in blog language" type="automatic" default="left"/>
+<Variable name="endSide" description="Side where text ends in blog language" type="automatic" default="right"/>
+*/
+/* Content
+----------------------------------------------- */
+body {
+font: normal normal 100% Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+color: #000000;
+background: #000002 url(https://themes.googleusercontent.com/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ) no-repeat fixed top center /* Credit: sololos (http://www.istockphoto.com/portfolio/sololos?platform=blogger) */;
+}
+html body .region-inner {
+min-width: 0;
+max-width: 100%;
+width: auto;
+}
+.content-outer {
+font-size: 90%;
+}
+a:link {
+text-decoration:none;
+color: #000000;
+}
+a:visited {
+text-decoration:none;
+color: #000000;
+}
+a:hover {
+text-decoration:underline;
+color: #D52C1F;
+}
+.content-outer {
+background: transparent url(https://resources.blogblog.com/blogblog/data/1kt/transparent/white80.png) repeat scroll top left;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+-goog-ms-border-radius: 15px;
+border-radius: 15px;
+-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+margin: 30px auto;
+}
+.content-inner {
+padding: 15px;
+}
+/* Header
+----------------------------------------------- */
+.header-outer {
+background: rgba(0,0,0,0) url(https://resources.blogblog.com/blogblog/data/1kt/transparent/header_gradient_shade.png) repeat-x scroll top left;
+_background-image: none;
+color: #ffffff;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.Header img, .Header #header-inner {
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.header-inner .Header .titlewrapper,
+.header-inner .Header .descriptionwrapper {
+padding-left: 30px;
+padding-right: 30px;
+}
+.Header h1 {
+font: normal bold 46px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.Header h1 a {
+color: #ffffff;
+}
+.Header .description {
+font-size: 130%;
+}
+/* Tabs
+----------------------------------------------- */
+.tabs-inner {
+margin: .5em 0 0;
+padding: 0;
+}
+.tabs-inner .section {
+margin: 0;
+}
+.tabs-inner .widget ul {
+padding: 0;
+background: rgba(0,0,0,0) url(https://resources.blogblog.com/blogblog/data/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+-goog-ms-border-radius: 10px;
+border-radius: 10px;
+}
+.tabs-inner .widget li {
+border: none;
+}
+.tabs-inner .widget li a {
+display: inline-block;
+padding: .5em 1em;
+margin-right: 0;
+color: #ffffff;
+font: normal bold 13px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+-moz-border-radius: 0 0 0 0;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-goog-ms-border-radius: 0 0 0 0;
+border-radius: 0 0 0 0;
+background: transparent none no-repeat scroll top left;
+border-right: 1px solid rgba(0,0,0,0);
+}
+.tabs-inner .widget li:first-child a {
+padding-left: 1.25em;
+-moz-border-radius-topleft: 10px;
+-moz-border-radius-bottomleft: 10px;
+-webkit-border-top-left-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-goog-ms-border-top-left-radius: 10px;
+-goog-ms-border-bottom-left-radius: 10px;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+}
+.tabs-inner .widget li.selected a,
+.tabs-inner .widget li a:hover {
+position: relative;
+z-index: 1;
+background: rgba(0,0,0,0) url(https://resources.blogblog.com/blogblog/data/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+color: #000000;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+/* Headings
+----------------------------------------------- */
+h2 {
+font: normal bold 100% Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+text-transform: uppercase;
+color: #000000;
+margin: .5em 0;
+}
+/* Main
+----------------------------------------------- */
+.main-outer {
+background: transparent none repeat scroll top center;
+-moz-border-radius: 0 0 0 0;
+-webkit-border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-webkit-border-bottom-left-radius: 0;
+-webkit-border-bottom-right-radius: 0;
+-goog-ms-border-radius: 0 0 0 0;
+border-radius: 0 0 0 0;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+.main-inner {
+padding: 15px 5px 20px;
+}
+.main-inner .column-center-inner {
+padding: 0 0;
+}
+.main-inner .column-left-inner {
+padding-left: 0;
+}
+.main-inner .column-right-inner {
+padding-right: 0;
+}
+/* Posts
+----------------------------------------------- */
+h3.post-title {
+margin: 0;
+font: normal bold 30px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.comments h4 {
+margin: 1em 0 0;
+font: normal bold 30px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+}
+.date-header span {
+color: #000000;
+}
+.post-outer {
+background-color: #ffffff;
+border: solid 1px #dbdbdb;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+-goog-ms-border-radius: 10px;
+padding: 15px 20px;
+margin: 0 -20px 20px;
+}
+.post-body {
+line-height: 1.4;
+font-size: 110%;
+position: relative;
+}
+.post-header {
+margin: 0 0 1.5em;
+color: #959595;
+line-height: 1.6;
+}
+.post-footer {
+margin: .5em 0 0;
+color: #959595;
+line-height: 1.6;
+}
+#blog-pager {
+font-size: 140%
+}
+#comments .comment-author {
+padding-top: 1.5em;
+border-top: dashed 1px #ccc;
+border-top: dashed 1px rgba(128, 128, 128, .5);
+background-position: 0 1.5em;
+}
+#comments .comment-author:first-child {
+padding-top: 0;
+border-top: none;
+}
+.avatar-image-container {
+margin: .2em 0 0;
+}
+/* Comments
+----------------------------------------------- */
+.comments .comments-content .icon.blog-author {
+background-repeat: no-repeat;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9sLFwMeCjjhcOMAAAD+SURBVDjLtZSvTgNBEIe/WRRnm3U8RC1neQdsm1zSBIU9VVF1FkUguQQsD9ITmD7ECZIJSE4OZo9stoVjC/zc7ky+zH9hXwVwDpTAWWLrgS3QAe8AZgaAJI5zYAmc8r0G4AHYHQKVwII8PZrZFsBFkeRCABYiMh9BRUhnSkPTNCtVXYXURi1FpBDgArj8QU1eVXUzfnjv7yP7kwu1mYrkWlU33vs1QNu2qU8pwN0UpKoqokjWwCztrMuBhEhmh8bD5UDqur75asbcX0BGUB9/HAMB+r32hznJgXy2v0sGLBcyAJ1EK3LFcbo1s91JeLwAbwGYu7TP/3ZGfnXYPgAVNngtqatUNgAAAABJRU5ErkJggg==);
+}
+.comments .comments-content .loadmore a {
+border-top: 1px solid #D52C1F;
+border-bottom: 1px solid #D52C1F;
+}
+.comments .continue {
+border-top: 2px solid #D52C1F;
+}
+/* Widgets
+----------------------------------------------- */
+.widget ul, .widget #ArchiveList ul.flat {
+padding: 0;
+list-style: none;
+}
+.widget ul li, .widget #ArchiveList ul.flat li {
+border-top: dashed 1px #ccc;
+border-top: dashed 1px rgba(128, 128, 128, .5);
+}
+.widget ul li:first-child, .widget #ArchiveList ul.flat li:first-child {
+border-top: none;
+}
+.widget .post-body ul {
+list-style: disc;
+}
+.widget .post-body ul li {
+border: none;
+}
+/* Footer
+----------------------------------------------- */
+.footer-outer {
+color:transparent;
+background: transparent url(https://resources.blogblog.com/blogblog/data/1kt/transparent/black50.png) repeat scroll top left;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-top-left-radius: 10px;
+-webkit-border-top-right-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-webkit-border-bottom-right-radius: 10px;
+-goog-ms-border-radius: 10px 10px 10px 10px;
+border-radius: 10px 10px 10px 10px;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+}
+.footer-inner {
+padding: 10px 5px 20px;
+}
+.footer-outer a {
+color: transparent;
+}
+.footer-outer a:visited {
+color: transparent;
+}
+.footer-outer a:hover {
+color: transparent;
+}
+.footer-outer .widget h2 {
+color: transparent;
+}
+/* Mobile
+----------------------------------------------- */
+html body.mobile {
+height: auto;
+}
+html body.mobile {
+min-height: 480px;
+background-size: 100% auto;
+}
+.mobile .body-fauxcolumn-outer {
+background: transparent none repeat scroll top left;
+}
+html .mobile .mobile-date-outer, html .mobile .blog-pager {
+border-bottom: none;
+background: transparent none repeat scroll top center;
+margin-bottom: 10px;
+}
+.mobile .date-outer {
+background: transparent none repeat scroll top center;
+}
+.mobile .header-outer, .mobile .main-outer,
+.mobile .post-outer, .mobile .footer-outer {
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+-goog-ms-border-radius: 0;
+border-radius: 0;
+}
+.mobile .content-outer,
+.mobile .main-outer,
+.mobile .post-outer {
+background: inherit;
+border: none;
+}
+.mobile .content-outer {
+font-size: 100%;
+}
+.mobile-link-button {
+background-color: #000000;
+}
+.mobile-link-button a:link, .mobile-link-button a:visited {
+color: #ffffff;
+}
+.mobile-index-contents {
+color: #000000;
+}
+.mobile .tabs-inner .PageList .widget-content {
+background: rgba(0,0,0,0) url(https://resources.blogblog.com/blogblog/data/1kt/transparent/tabs_gradient_shade.png) repeat scroll bottom;
+color: #000000;
+}
+.mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
+border-left: 1px solid rgba(0,0,0,0);
+}
+#mbtnavbar {
+background: #060505;
+width: 1120px;
+color: #FFF;
+margin: 0px;
+padding: 0;
+position: relative;
+border-top:0px solid #960100;
+height:35px;
+}
+#mbtnav {
+margin: 0;
+padding: 0;
+}
+#mbtnav ul {
+float: left;
+list-style: none;
+margin: 0;
+padding: 0;
+}
+#mbtnav li {
+list-style: none;
+margin: 0;
+padding: 0;
+border-left:1px solid #333;
+border-right:1px solid #333;
+height:35px;
+}
+#mbtnav li a, #mbtnav li a:link, #mbtnav li a:visited {
+color: #FFF;
+display: block;
+font:normal 12px Helvetica, sans-serif; margin: 0; font-weight: bold;
+padding: 9px 12px 10px 12px;
+text-decoration: none;
+}
+#mbtnav li a:hover, #mbtnav li a:active {
+background: #BF0100;
+color: #FFF;
+display: block;
+text-decoration: none;
+margin: 0;
+padding: 9px 12px 10px 12px;
+}
+#mbtnav li {
+float: left;
+padding: 0;
+}
+#mbtnav li ul {
+z-index: 9999;
+position: absolute;
+left: -999em;
+height: auto;
+width: 170px;
+margin: 0;
+padding: 0;
+}
+#mbtnav li ul a {
+width: 170px;
+}
+#mbtnav li ul ul {
+margin: -25px 0 0 170px;
+}
+#mbtnav li:hover ul ul, #mbtnav li:hover ul ul ul, #mbtnav li.sfhover ul ul, #mbtnav li.sfhover ul ul ul {
+left: -999em;
+}
+#mbtnav li:hover ul, #mbtnav li li:hover ul, #mbtnav li li li:hover ul, #mbtnav li.sfhover ul, #mbtnav li li.sfhover ul, #mbtnav li li li.sfhover ul {
+left: auto;
+}
+#mbtnav li:hover, #mbtnav li.sfhover {
+position: static;
+}
+#mbtnav li li a, #mbtnav li li a:link, #mbtnav li li a:visited {
+background: #BF0100;
+width: 160px;
+color: #FFF;
+display: block;
+font:normal 12px Helvetica, sans-serif;
+margin: 0;
+padding: 9px 12px 10px 12px;
+text-decoration: none;
+z-index:9999;
+border-bottom:1px dotted #333;
+}
+#mbtnav li li a:hover, #mbtnavli li a:active {
+background: #060505;
+color: #FFF;
+display: block; margin: 0;
+padding: 9px 12px 10px 12px;
+text-decoration: none;
+}
+<div id='mbtnavbar'>
+<ul id='mbtnav'>
+<li>
+<a href=' link trang chủ'>TRANG CHỦ</a></li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a></li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a></li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a></li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a>
+<ul>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+</ul>
+</li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a>
+<ul>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+</ul>
+</li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a>
+<ul>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN </a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+</ul>
+</li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a>
+<ul>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+</ul>
+</li>
+<li>
+<a href='link chuyên mục'>TÊN MỤC</a>
+<ul>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+<li><a href='link nhãn'> TÊN NHÃN</a></li>
+<li><a href='link nhãn'>TÊN NHÃN</a></li>
+</ul>
+</li>
+<li>
+</li>
+</ul>
+</div>
+
+--></style>
+<style id="template-skin-1" type="text/css"><!--
+body {
+min-width: 1220px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+min-width: 1220px;
+max-width: 1220px;
+_width: 1220px;
+}
+.main-inner .columns {
+padding-left: 0px;
+padding-right: 250px;
+}
+.main-inner .fauxcolumn-center-outer {
+left: 0px;
+right: 250px;
+/* IE6 does not respect left and right together */
+_width: expression(this.parentNode.offsetWidth -
+parseInt("0px") -
+parseInt("250px") + 'px');
+}
+.main-inner .fauxcolumn-left-outer {
+width: 0px;
+}
+.main-inner .fauxcolumn-right-outer {
+width: 250px;
+}
+.main-inner .column-left-outer {
+width: 0px;
+right: 100%;
+margin-left: -0px;
+}
+.main-inner .column-right-outer {
+width: 250px;
+margin-right: -250px;
+}
+#layout {
+min-width: 0;
+}
+#layout .content-outer {
+min-width: 0;
+width: 800px;
+}
+#layout .region-inner {
+min-width: 0;
+width: auto;
+}
+body#layout div.add_widget {
+padding: 8px;
+}
+body#layout div.add_widget a {
+margin-left: 32px;
+}
+--></style>
+<style>
+    body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ);}
+    
+@media (max-width: 200px) { body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ&options=w200);}}
+@media (max-width: 400px) and (min-width: 201px) { body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ&options=w400);}}
+@media (max-width: 800px) and (min-width: 401px) { body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ&options=w800);}}
+@media (max-width: 1200px) and (min-width: 801px) { body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ&options=w1200);}}
+/* Last tag covers anything over one higher than the previous max-size cap. */
+@media (min-width: 1201px) { body {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=1nCEFJnjbEM1e6XClO-Dh7L-U6FJQuxivkV20FpXYmkNyRA0vQIZPfjuIp6hcROwwArvQ&options=w1600);}}
+  </style>
+<script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2912-1', 'auto', 'blogger');
+        ga('blogger.send', 'pageview');
+      </script>
+<!--- Start of BinhTV phân trang -->
+    <script type="text/javascript" charset="UTF-8" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/loader.js.tải xuống"></script><link id="load-css-0" rel="stylesheet" type="text/css" href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/tooltip.css"><link id="load-css-1" rel="stylesheet" type="text/css" href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/util.css"><script type="text/javascript" charset="UTF-8" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/jsapi_compiled_default_module.js.tải xuống"></script><script type="text/javascript" charset="UTF-8" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/jsapi_compiled_graphics_module.js.tải xuống"></script><script type="text/javascript" charset="UTF-8" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/jsapi_compiled_ui_module.js.tải xuống"></script><script type="text/javascript" charset="UTF-8" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/jsapi_compiled_corechart_module.js.tải xuống"></script></head><body class="">&nbsp;
+<!--- End of BinhTV -->
+<!-- Facebook Pixel Code Nuong VietData-->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1188695898240278');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height='1' src='https://www.facebook.com/tr?id=1188695898240278&ev=PageView&noscript=1' style='display:none' width='1'/></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Facebook Pixel Code Nuong -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1951279065031252');
+  fbq('track', 'PageView');
+  </script>
+<noscript><img height='1' src='https://www.facebook.com/tr?id=1951279065031252&ev=PageView&noscript=1' style='display:none' width='1'/></noscript>
+<!-- DO NOT MODIFY -->
+<!-- End Facebook Pixel Code -->
+<!-- Facebook Pixel Code Bin-->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '482731023040304');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height='1' src='https://www.facebook.com/tr?id=482731023040304&ev=PageView&noscript=1' style='display:none' width='1'/></noscript>
+<!-- End Facebook Pixel Code -->
+<link href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/authorization.css" media="all" onload="if(media!=&#39;all&#39;)media=&#39;all&#39;" rel="stylesheet"><noscript><link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=4187204636885547533&amp;zx=430ac521-5a41-4154-bf6d-05b07d49f546' rel='stylesheet'/></noscript>
+<meta name="google-adsense-platform-account" content="ca-host-pub-1556223355139109">
+<meta name="google-adsense-platform-domain" content="blogspot.com">
+
+<!-- data-ad-client=ca-pub-4935922293118705 -->
+
+<link rel="stylesheet" href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/css2">
+
+<div class="navbar no-items section" id="navbar" name="Thanh điều hướng">
+</div>
+<div class="body-fauxcolumns">
+<div class="fauxcolumn-outer body-fauxcolumn-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<div class="content">
+<div class="content-fauxcolumns">
+<div class="fauxcolumn-outer content-fauxcolumn-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<div class="content-outer">
+<div class="content-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left content-fauxborder-left">
+<div class="fauxborder-right content-fauxborder-right"></div>
+<div class="content-inner">
+<header>
+<div class="header-outer">
+<div class="header-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left header-fauxborder-left">
+<div class="fauxborder-right header-fauxborder-right"></div>
+<div class="region-inner header-inner">
+<div class="header section" id="header" name="Tiêu đề"><div class="widget Header" data-version="1" id="Header1">
+<div id="header-inner">
+<a href="https://www.tranvanbinh.vn/" style="display: block">
+<img alt="TRẦN VĂN BÌNH MASTER" height="300px; " id="Header1_headerimg" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/Web_2026_OAZ28,29,30,31_20250122_2..png" style="display: block" width="1200px; ">
+</a>
+</div>
+</div></div>
+</div>
+</div>
+<div class="header-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</header>
+<div class="tabs-outer">
+<div class="tabs-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left tabs-fauxborder-left">
+<div class="fauxborder-right tabs-fauxborder-right"></div>
+<div class="region-inner tabs-inner">
+<div class="tabs no-items section" id="crosscol" name="Trên tất cả các cột"></div>
+<div class="tabs section" id="crosscol-overflow" name="Cross-Column 2"><div class="widget HTML" data-version="1" id="HTML2">
+<div class="widget-content">
+<div id="mbtnavbar"> 
+<ul id="mbtnav">
+     <li> 
+		<a href="http://www.tranvanbinh.vn/p/trang-chu.html">HOME</a>
+     </li>	
+
+     <li><a href="http://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-nhap-mon.html"> BASIC </a>
+		 <ul>
+		<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-nhap-mon.html"> FULL BÀI VIẾT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-tong-quan.html"> TỔNG QUAN</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-nghe-dba.html"> NGHỀ IT, DBA</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-lua-chon-dba-nao.html">CHỌN DATABASE NÀO</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-lab.html"> LAB </a>	</li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-cong-cu.html">CÔNG CỤ</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/nguyen-ly-co-so-du-lieu.html">NGUYÊN LÝ CƠ SỞ DỪ LIỆU</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-co-so-du-lieu-co-ban.html">CƠ SỞ DỪ LIỆU CƠ BẢN</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-hoc-oracle-database-tu-z-oracle.html">QUẢN TRỊ ORACLE DATABASE CƠ BẢN TỪ A-Z</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-xu-huong-cong-nghe.html">XU HƯỚNG CÔNG NGHỆ</a></li>	
+		 </ul>
+     </li>
+     <li><a href="http://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle.html"> INSTALL,UPGRADE </a>
+		 <ul>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle.html"> FULL BÀI VIẾT</a></li>
+		</ul>
+	</li>
+     <li><a href="https://www.tranvanbinh.vn/p/admin.html"> ADMIN</a>
+		 <ul>
+			<li><a href="https://www.tranvanbinh.vn/p/admin.html"> FULL BÀI VIẾT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-cau-hoi-thuong-gap.html">CÂU HỎI THƯỜNG GẶP</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/admin-hoc-oracle-database-tu-z-oracle.html">ADMIN TUTORIAL</a></li>								
+			<li><a href="https://www.tranvanbinh.vn/p/admin-cai-at-nang-cap.html">CÀI ĐẶT, PATCH</a></li>				
+			<li><a href="https://www.tranvanbinh.vn/p/admin-upgrademigration-chuyen-du-lieu.html">UPGRADE/MIGRATION </a></li>	        
+			<li><a href="https://www.tranvanbinh.vn/p/admin-giam-sat.html">NGUYÊN LÝ</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/admin-cong-cu.html">CÔNG CỤ</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-van-hanh.html">INSTANCE </a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-table-partitioning.html">USER, QUYỀN</a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/admin-luu-tru.html">LƯU TRỮ (STORAGE)</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-quan-ly-giao-dich-phan-tan.html">GIAO DỊCH</a></li> 			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-bao-mat-security.html"> BẢO MẬT</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/admin-objects.html">OBJECTS </a></li>					
+			<li><a href="https://www.tranvanbinh.vn/p/admin-backup.html">BACKUP</a></li> 
+			<li><a href="https://www.tranvanbinh.vn/p/admin-recovery.html">RECOVERY</a></li> 
+			<li><a href="https://www.tranvanbinh.vn/p/admin-index.html">BẢO TRÌ</a></li> 
+			<li><a href="https://www.tranvanbinh.vn/p/admin-index-partitioning.html">HIỆU NĂNG (PERFORMANCE)</a></li> 			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-chuyen-du-lieu.html">CÁC LỖI THƯỜNG GẶP</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-troubleshooting.html">TROUBLESHOOTING</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/admin-quy-trinh-van-hanh-oracle.html">QUY TRÌNH VẬN HÀNH ORACLE DATABASE A-Z</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-van-hanh-tu-ong-job.html"> VẬN HÀNH TỰ ĐỘNG</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/admin-tips.html">TIPS</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-scripts.html">KHO TÀI NGUYÊN</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-exadata.html">EXADATA</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/admin-khac.html">KHÁC</a></li>    
+		  </ul>
+	  </li>        	
+
+     <li><a href="http://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-sql-plsql.html"> DEV </a>
+		 <ul>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-sql-plsql.html"> FULL BÀI VIẾT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sqlplsql-tong-quan.html">TỔNG QUAN</a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/sql-chuan-bi-bang-du-lieu.html">CHUẨN BỊ DỮ LIỆU</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sql-cong-cu.html">CÔNG CỤ</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-co-so-du-lieu-co-ban.html">CƠ SỞ DỪ LIỆU CƠ BẢN</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sql-sql-co-ban.html">SQL FULL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sql-99-tutorial.html">SQL 99 TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sql-tutorial-co-ban.html">SQL TUTORIAL_TÓM TẮT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/oracle-sql-tutorial-z.html">ORACLE SQL TUTORIAL</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/sql-plsql-co-ban.html">PL/SQL FULL</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/oracle-plsql-tutorial-z.html"> PL/SQL TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/oracle-plsql-tutorialtom-tat.html"> PL/SQL TUTORIAL_TÓM TẮT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/sqlplsql-thi-chung-chi-oca-developer.html">THI CHỨNG CHỈ OCA DEVELOPER</a></li>	        		
+		 </ul>
+     </li>
+  	<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-security.html"> SECURITY </a>		 
+		 <ul>
+				<li><a href="https://www.tranvanbinh.vn/p/system-toan-thong-tin-va-ninh-mang.html"> DB</a></li>
+				<li><a href="https://www.tranvanbinh.vn/p/system-toan-thong-tin-va-ninh-mang.html"> SYSTEM</a></li>		
+		 </ul>
+     </li>
+	 
+	 <li><a href="http://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-toi-uu-oracle.html"> TUNNING</a>
+		 <ul>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-toi-uu-oracle.html"> FULL BÀI VIẾT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-toi-uu-oracle.html"> TUNNING TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-tong-quan.html"> TỔNG QUAN </a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-cong-cu-toi-uu.html"> CÔNG CỤ TỐI ƯU </a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-phat-hien-van-e-can-toi-uu.html"> PHÁT HIỆN VẤN ĐỀ </a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-toi-uu-instance.html"> INSTANCE TUNNING FULL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-toi-uu-oracle.html"> INSTANCE TUNNING TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-toi-uu-sql.html"> SQL TUNNING FULL</a></li>					
+			<li><a href="https://www.tranvanbinh.vn/p/tunning-toi-uu-sql.html"> SQL TUNNING TUTORIAL </a></li>
+		  </ul>        
+      </li>
+
+	
+     <li><a href="http://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle-rac.html"> RAC</a>
+		 <ul>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle-rac.html"> FULL BÀI VIẾT</a></li>				
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-oracle-rac.html"> RAC TUTORIAL</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/rac-bat-au.html">TỔNG QUAN</a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/rac-cai-at-patch.html">CÀI ĐẶT, PATCH</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/rac-cau-hinh.html">CẤU HÌNH</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/rac-quan-ly-database-instance-rac.html">QUẢN LÝ INSTANCE RAC </a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/rac-quan-ly-luu-tru-storage.html">QUẢN LÝ LƯU TRỮ </a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/rac-troubleshooting.html">TROUBLESHOOTING </a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/rac-quan-ly-asm.html">QUẢN LÝ ASM</a></li>	
+		  </ul>        
+      </li>
+     <li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-ong-bo-du-lieu.html"> HA </a>
+		 <ul>		
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-ong-bo-du-lieu.html"> FULL BÀI VIẾT</a></li>		     
+			<li><a href="https://www.tranvanbinh.vn/p/ong-bo-dataguard.html">DATAGUARD</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/ong-bo-goldengate.html">GOLDEN GATE</a></li>
+		 </ul>        
+     </li>
+		 <li><a href="http://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-db-khac.html"> OTHER DB </a>
+		 <ul>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-db-khac.html"> FULL BÀI VIẾT</a></li>					
+			<li><a href="https://www.tranvanbinh.vn/p/tong-quan-ve-db-khac.html">TỔNG QUAN</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/nhap-mon-co-so-du-lieu-co-ban.html">CƠ SỞ DỪ LIỆU CƠ BẢN</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/mysql.html">MYSQL-MariaDB</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/mysql-tutorial-tu-z.html">MYSQL TUTORIAL</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/sql-server.html">SQL SERVER</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/ms-sql-server-tutorial-tu-z.html"> SQL SERVER TUTORIAL </a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-postgresql.html">PostgreSQL FULL</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-postgresql.html">PostgreSQL TUTORIAL</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-ibm-db2.html">DB2</a></li>
+			 <li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-nosql.html">NOSQL</a></li>
+			 <li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-big-data.html">BIGDATA</a></li>
+		  </ul>        
+      </li>      
+
+
+	<li><a href="http://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-system.html"> DEVOPS </a>
+		 <ul>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-system.html"> FULL BÀI VIẾT</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/system-getting-started.html"> GETTING STARTED</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/system-ha-tang.html">Hạ tầng</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-quy-trinh.html">Quy trình</a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/system-solaris.html">SOLARIS FULL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-solaris.html">SOLARIS TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-linux.html">LINUX FULL</a></li>			
+			<li><a href="https://www.tranvanbinh.vn/p/linux-tutorial.html">LINUX TUTORIAL</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/system-aix.html">AIX</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-aix.html">AIX TUTORIAL</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-container.html">CONTAINER</a></li>		
+			<li><a href="https://www.tranvanbinh.vn/p/system-weblogic-middleware-khac.html">WEBLOGIC, MIDDLEWARE KHÁC</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/system-weblogic-middleware-khac.html">WEBLOGIC TUTORIAL</a></li>				
+			<li><a href="https://www.tranvanbinh.vn/p/system-khac.html">Khác</a></li>		
+
+		  </ul>        
+	</li>
+	<li><a href="http://www.tranvanbinh.vn/p/dich-vu-oracle-database.html"> SOLUTION </a>	
+		<ul>
+<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-giai-phap-cntt.html"> FULL BÀI VIẾT</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/giai-phap-chuyen-oi-so.html">Giải pháp Chuyển đổi số</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/giai-phap-dich-vu-giai-phap-cntt.html">Giải pháp CNTT</a></li>
+			<li><a href="http://www.tranvanbinh.vn/p/giai-phap-oracle.html">Giải pháp Cơ sở dữ liệu</a></li>
+			<li><a href="http://www.tranvanbinh.vn/p/dich-vu-oracle-database.html">Dịch vụ Cơ sở dữ liệu</a></li>										
+			<li><a href="http://www.tranvanbinh.vn/p/dich-vu-he-thong_12.html">Dịch vụ Hệ thống </a></li>     
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-bai-viet-ve-ai_18.html">AI </a></li>        
+		</ul> 
+		
+		
+	</li><li><a href="http://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-ao-tao.html"> TRAINING </a>	
+		  <ul>
+			<li><a href="https://www.tranvanbinh.vn/p/tong-hop-cac-bai-viet-ve-ao-tao.html"> FULL BÀI VIẾT</a></li>	
+			<li><a href="https://www.tranvanbinh.vn/p/ao-tao-khoa-hoc-online.html">KHÓA HỌC ONLINE</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/ao-tao-ao-tao.html">ĐÀO TẠO</a></li>
+			<li><a href="https://www.tranvanbinh.vn/p/ao-tao-thi-chung-chi-quoc-te.html">THI CHỨNG CHỈ</a></li>
+			<li><a href="http://www.tranvanbinh.vn/search/label/%C4%90%C3%A1nh%20gi%C3%A1%20c%E1%BB%A7a%20h%E1%BB%8Dc%20vi%C3%AAn">ĐÁNH GIÁ CỦA HỌC VIÊN</a></li>			
+<li><a href="https://www.tranvanbinh.vn/p/ky-nang-mem.html"> KỸ NĂNG MỀM </a></li>							
+		  </ul> 
+     </li>
+
+<li><a href="http://www.tranvanbinh.vn/search/label/Li%C3%AAn%20h%E1%BB%87"> CONTACT </a></li>
+
+</ul></div>
+</div>
+<div class="clear"></div>
+</div></div>
+</div>
+</div>
+<div class="tabs-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="main-outer">
+<div class="main-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left main-fauxborder-left">
+<div class="fauxborder-right main-fauxborder-right"></div>
+<div class="region-inner main-inner">
+<div class="columns fauxcolumns">
+<div class="fauxcolumn-outer fauxcolumn-center-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="fauxcolumn-outer fauxcolumn-left-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<div class="fauxcolumn-outer fauxcolumn-right-outer">
+<div class="cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left">
+<div class="fauxborder-right"></div>
+<div class="fauxcolumn-inner">
+</div>
+</div>
+<div class="cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<!-- corrects IE6 width calculation -->
+<div class="columns-inner">
+<div class="column-center-outer">
+<div class="column-center-inner">
+<div class="main section" id="main" name="Số điện thoại chính"><div class="widget Blog" data-version="1" id="Blog1">
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="https://www.tranvanbinh.vn/2021/08/oracle-database-khung-thi-backup-nhu-nao.html" id="Blog1_blog-pager-newer-link" title="Bài đăng Mới hơn">Bài đăng Mới hơn</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="https://www.tranvanbinh.vn/2021/08/cau-hinh-thay-oi-tham-so-instance.html" id="Blog1_blog-pager-older-link" title="Bài đăng Cũ hơn">Bài đăng Cũ hơn</a>
+</span>
+<a class="home-link" href="https://www.tranvanbinh.vn/">Trang chủ</a>
+</div>
+<div class="clear"></div>
+&nbsp;
+              
+<div class="blog-posts hfeed">
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>Chủ Nhật, 22 tháng 8, 2021</span></h2>
+
+          <div class="date-posts">
+        
+<div class="post-outer">
+<div class="post hentry uncustomized-post-template" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+<meta content="4187204636885547533" itemprop="blogId">
+<meta content="3669110001257956546" itemprop="postId">
+<a name="3669110001257956546"></a>
+<h3 class="post-title entry-title" itemprop="name">
+Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-3669110001257956546" itemprop="description articleBody">
+<div><h1 style="background-color: white; box-sizing: border-box; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 15px;"><span style="color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-weight: 500;"><span style="font-size: small;">Mục đích: Hướng dẫn&nbsp;</span></span><span style="color: #212529; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;"><span style="font-weight: 500;"><span style="font-size: small;">Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c</span><span style="font-size: 16px;"><a name="more"></a></span></span></span></h1><ul style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><li style="box-sizing: border-box;">Quản lý Tablespaces trong CDB</li><li style="box-sizing: border-box;">Quản lý Tablespaces trong&nbsp;PDB</li><li style="box-sizing: border-box;">Undo Tablespaces</li><li style="box-sizing: border-box;">Temporary Tablespaces</li><li style="box-sizing: border-box;">Default Tablespaces</li></ul><a id="manage-tablespaces-in-a-cdb" style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px;"></a><h2 style="background-color: white; box-sizing: border-box; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 0px;"><span style="color: #212529; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; font-size: x-large;">Quản lý Tablespaces trong</span><span style="color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: x-large;">&nbsp;CDB</span></h2><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;">Quản lý tablespace trong container database&nbsp;(CDB) không khác gì với cơ sở dữ liệu không phải CDB (non-CDB). Miễn là bạn đã đăng nhập với tư cách là người dùng có đặc quyền và trỏ đến root container, các lệnh thông thường đều dùng được.</p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">CONN / AS SYSDBA
+
+SQL&gt; SHOW CON_NAME
+
+CON_NAME
+------------------------------
+CDB$ROOT
+
+SQL&gt; 
+
+CREATE TABLESPACE dummy
+  DATAFILE '/u01/app/oracle/oradata/cdb1/dummy01.dbf' SIZE 1M
+  AUTOEXTEND ON NEXT 1M;
+  
+Tablespace created.
+
+SQL&gt;
+
+ALTER TABLESPACE dummy ADD
+  DATAFILE '/u01/app/oracle/oradata/cdb1/dummy02.dbf' SIZE 1M
+  AUTOEXTEND ON NEXT 1M;
+ 
+Tablespace altered.
+
+SQL&gt; 
+
+DROP TABLESPACE dummy INCLUDING CONTENTS AND DATAFILES;
+
+Tablespace dropped.
+
+SQL&gt;</pre><a id="manage-tablespaces-in-a-pdb" style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px;"></a><h2 style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 0px;"><span style="font-size: x-large;">Quản lý Tablespaces trong PDB</span></h2><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Các lệnh quản lý tablespace dùng với mức root container vẫn dùng được với pluggable database&nbsp;(PDB), miễn là bạn trỏ đến đúng container.&nbsp;</span><span style="box-sizing: border-box; vertical-align: inherit;">Bạn có thể kết nối bằng cách sử dụng một người dùng thông thường (common user), sau đó chuyển sang đúng container.</span></p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">SQL&gt; CONN / AS SYSDBA
+Connected.
+
+SQL&gt; ALTER SESSION SET CONTAINER = pdb1;
+
+Session altered.
+
+SQL&gt; SHOW CON_NAME
+
+CON_NAME
+------------------------------
+PDB1<br></pre><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;">Ngoài ra, có thể kết nối trực tiếp với PDB với tư cách là người dùng cục bộ có đủ đặc quyền.</p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">SQL&gt; CONN <b>pdb_admin@pdb1</b>
+Enter password: oracle
+Connected.
+
+SQL&gt; SHOW CON_NAME
+
+CON_NAME
+------------------------------
+PDB1
+SQL&gt;</pre><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Sau khi được trỏ đến đúng container, tablespace&nbsp;có thể được quản lý bằng cách sử dụng các lệnh tương tự như ở trên.&nbsp;</span><span style="box-sizing: border-box; vertical-align: inherit;">Đảm bảo rằng bạn đặt các datafile ở vị trí thích hợp cho PDB.</span></p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">SQL&gt; CREATE TABLESPACE dummy
+  DATAFILE '/u01/app/oracle/oradata/cdb1/pdb1/dummy01.dbf' SIZE 1M
+  AUTOEXTEND ON NEXT 1M;
+  
+Tablespace created.
+
+SQL&gt; ALTER TABLESPACE dummy ADD
+  DATAFILE '/u01/app/oracle/oradata/cdb1/pdb1/dummy02.dbf' SIZE 1M
+  AUTOEXTEND ON NEXT 1M;
+ 
+Tablespace altered.
+
+SQL&gt; DROP TABLESPACE dummy INCLUDING CONTENTS AND DATAFILES;
+
+Tablespace dropped.
+
+SQL&gt;</pre><a id="undo-tablespaces" style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px;"></a><h2 style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 0px;"><span style="font-size: x-large;">Undo Tablespaces</span></h2><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Việc quản lý undo tablespace&nbsp;trong CDB không khác so với quản lý của cơ sở dữ liệu không phải CDB.</span></p><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Ngược lại, PDB không có undo tablespace.&nbsp;</span><span style="box-sizing: border-box; vertical-align: inherit;">Thay vào đó, nó sử dụng undo tablespace&nbsp; thuộc CDB.&nbsp;</span><span style="box-sizing: border-box; vertical-align: inherit;">Nếu chúng ta kết nối với một PDB, chúng ta có thể thấy không có undo tablespace nào được hiển thị.</span>.</p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">CONN pdb_admin@pdb1
+
+SELECT tablespace_name FROM dba_tablespaces;
+
+TABLESPACE_NAME
+------------------------------
+SYSTEM
+SYSAUX
+TEMP
+USERS
+
+SQL&gt;</pre><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;">Nhưng chúng ta có thể thấy datafile được liên kết với CDB undo tablespace.</p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">SQL&gt; SELECT name FROM v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+/u01/app/oracle/oradata/cdb1/undotbs01.dbf
+/u01/app/oracle/oradata/cdb1/pdb1/system01.dbf
+/u01/app/oracle/oradata/cdb1/pdb1/sysaux01.dbf
+/u01/app/oracle/oradata/cdb1/pdb1/pdb1_users01.dbf
+
+SQL&gt; SELECT name FROM v$tempfile;
+
+NAME
+--------------------------------------------------------------------------------
+/u01/app/oracle/oradata/cdb1/pdb1/temp01.dbf
+
+SQL&gt;</pre><a id="temporary-tablespaces" style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px;"></a><h2 style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 0px;"><span style="font-size: x-large;">Temporary Tablespaces</span></h2><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Việc quản lý Temporary Tablespaces trong CDB không khác so với quản lý của cơ sở dữ liệu không phải CDB.</span></p><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Một PDB có thể có Temporary Tablespace riêng, hoặc PDB được tạo mà không có Temporary Tablespace, PDB đó có thể chia sẻ Temporary Tablespace&nbsp;với CDB.</span></p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">SQL&gt; CONN pdb_admin@pdb1
+
+SQL&gt; CREATE TEMPORARY TABLESPACE temp2
+  TEMPFILE '/u01/app/oracle/oradata/cdb1/pdb1/temp02.dbf' SIZE 5M
+  AUTOEXTEND ON NEXT 1M;
+  
+Tablespace created.
+
+SQL&gt; DROP TABLESPACE temp2 INCLUDING CONTENTS AND DATAFILES;
+
+Tablespace dropped.<br></pre><a id="default-tablespaces" style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px;"></a><h2 style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; line-height: 1.2; margin-bottom: 0.5rem; margin-top: 0px;"><span style="font-size: x-large;">Tablespace mặc định</span></h2><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Đặt tablespace mặc định và temporary tablespace&nbsp;mặc định cho CDB khôngkhác so với cơ sở dữ liệu không phải CDB.</span></p><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;"><span style="box-sizing: border-box; vertical-align: inherit;">Có hai cách để đặt tablespace mặc định và temporary tablespace&nbsp;mặc định&nbsp;cho PDB. L</span><span style="box-sizing: border-box; vertical-align: inherit;">ệnh&nbsp;</span></span><code style="box-sizing: border-box; color: black; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; overflow-wrap: break-word;">ALTER PLUGGABLE DATABASE</code><span style="box-sizing: border-box; vertical-align: inherit;">&nbsp;là cách được khuyến nghị sử dụng.</span></p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">CONN pdb_admin@pdb1
+ALTER PLUGGABLE DATABASE DEFAULT TABLESPACE users;
+ALTER PLUGGABLE DATABASE DEFAULT TEMPORARY TABLESPACE temp;</pre><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;"><span style="box-sizing: border-box; vertical-align: inherit;">Hoặc&nbsp;</span></span>lệnh<span style="box-sizing: border-box; vertical-align: inherit;"><span style="box-sizing: border-box; vertical-align: inherit;">&nbsp;</span></span><code style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; overflow-wrap: break-word;">ALTER DATABASE</code><span style="box-sizing: border-box; vertical-align: inherit;"><span style="box-sizing: border-box; vertical-align: inherit;">.</span></span></p><pre style="background-color: whitesmoke; border-radius: 4px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; margin-bottom: 1rem; margin-top: 0px; overflow: auto; padding: 10.5px;">CONN pdb_admin@pdb1
+ALTER DATABASE DEFAULT TABLESPACE users;
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE temp;</pre><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Với cả hai cách trên, bạn phải trỏ đến container thích hợp để lệnh hoạt động (lệnh&nbsp;</span><span style="background-color: whitesmoke; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">CONN pdb_admin@pdb1)</span></p><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><span style="box-sizing: border-box; vertical-align: inherit;">Để biết thêm thông tin, hãy xem:</span></p><ul style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;"><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17633/cdbovrvw.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">Introduction to the Multitenant Architecture</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17633/cdblogic.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">Overview of the Multitenant Architecture</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17636/part_cdb.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">Managing a Multitenant Environment</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17209/statements_7003.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">CREATE TABLESPACE</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17209/statements_3002.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">ALTER TABLESPACE</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17209/statements_9004.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">DROP TABLESPACE</a></li><li style="box-sizing: border-box;"><a href="http://docs.oracle.com/cd/E16655_01/server.121/e17209/statements_2007.htm" style="background-color: transparent; box-sizing: border-box; color: #337ab7; text-decoration-line: none;">ALTER PLUGGABLE DATABASE</a></li></ul><p style="background-color: white; box-sizing: border-box; color: #212529; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, &quot;Liberation Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 16px; margin-bottom: 1rem; margin-top: 0px;">Hy vọng hữu ích cho bạn.</p></div>=============================<br>
+* KHOÁ HỌC ORACLE DATABASE A-Z ENTERPRISE trực tiếp từ tôi giúp bạn bước đầu trở thành những chuyên gia DBA, đủ kinh nghiệm đi thi chứng chỉ OA/OCP, đặc biệt là rất nhiều kinh nghiệm, bí kíp thực chiến trên các hệ thống Core tại VN chỉ sau 1 khoá học.<br>
+* CÁCH ĐĂNG KÝ: Gõ (.) hoặc để lại số điện thoại hoặc inbox <a href="https://m.me/tranvanbinh.vn">https://m.me/tranvanbinh.vn</a>   hoặc Hotline/Zalo 090.29.12.888 <br>
+* Chi tiết tham khảo:<br>
+<a href="https://bit.ly/oaz_w">https://bit.ly/oaz_w</a><br><br>
+=============================<br>
+KẾT NỐI VỚI CHUYÊN GIA TRẦN VĂN BÌNH:<br>
+📧 Mail: binhoracle@gmail.com <br>
+☎️ Mobile: 0902912888<br>
+⚡️ Skype: tranbinh48ca<br>
+👨 Facebook: <a href="https://www.facebook.com/BinhOracleMaster">https://www.facebook.com/BinhOracleMaster</a><br>
+👨 Inbox Messenger: <a href="https://m.me/101036604657441">https://m.me/101036604657441 (profile)</a><br>
+👨 Fanpage: <a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/tranvanbinh.vn">https://www.facebook.com/tranvanbinh.vn</a><br>
+👨 Inbox Fanpage: <a href="https://m.me/tranvanbinh.vn">https://m.me/tranvanbinh.vn</a><br>
+👨👩  Group FB: <a href="https://www.facebook.com/groups/DBAVietNam">https://www.facebook.com/groups/DBAVietNam</a><br>
+👨 Website: <a href="https://www.tranvanbinh.vnr/">https://www.tranvanbinh.vn</a><br>
+👨 Blogger: <a href="https://tranvanbinhmaster.blogspot.com/">https://tranvanbinhmaster.blogspot.com</a><br>
+🎬 Youtube: <a href="http://bit.ly/ytb_binhoraclemaster">http://bit.ly/ytb_binhoraclemaster</a><br>
+👨 Tiktok:  <a href="https://www.tiktok.com/@binhoraclemaster?lang=vi">https://www.tiktok.com/@binhoraclemaster?lang=vi</a><br>
+👨 Linkin: <a href="https://www.linkedin.com/in/binhoracle">https://www.linkedin.com/in/binhoracle</a><br>
+👨 Twitter: <a href="https://twitter.com/binhoracle">https://twitter.com/binhoracle</a><br>
+👨 Địa chỉ: Tòa nhà Sun Square - 21 Lê Đức Thọ - Phường Mỹ Đình 1 - Quận Nam Từ Liêm - TP.Hà Nội<br><br>
+=============================<br>
+học oracle database, Tự học Oracle, Tài liệu Oracle 12c tiếng Việt, Hướng dẫn sử dụng Oracle Database, Oracle SQL cơ bản, Oracle SQL là gì, Khóa học Oracle Hà Nội, Học chứng chỉ Oracle ở đầu, Khóa học Oracle online,khóa học pl/sql, học dba, học dba ở việt nam, khóa học dba, khóa học dba sql, tài liệu học dba oracle, Khóa học Oracle online, học oracle sql, học oracle ở đâu tphcm, học oracle bắt đầu từ đâu, học oracle ở hà nội, oracle database tutorial, oracle database 12c, oracle database là gì, oracle database 11g, oracle download, oracle database 19c, oracle dba tutorial, oracle tunning, sql tunning , oracle 12c, oracle multitenant, Container Databases (CDB), Pluggable Databases (PDB), oracle cloud, oracle security, oracle fga, audit_trail, oracle dataguard, oracle goldengate, mview, oracle exadata, oracle weblogic, middleware, hoc solaris, hoc linux, hoc aix, unix, oracle oca, oracle ocp, oracle ocm <br>
+
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+By
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+<meta content="https://www.blogger.com/profile/17747025749690754434" itemprop="url">
+<a class="g-profile" href="https://www.blogger.com/profile/17747025749690754434" rel="author" title="author profile">
+<span itemprop="name">BinhOracle</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+lúc
+<meta content="https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html" itemprop="url">
+<a class="timestamp-link" href="https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2021-08-22T16:50:00+07:00">8/22/2021 04:50:00 CH</abbr></a>
+</span>
+<span class="post-comment-link">
+</span>
+<span class="post-icons">
+</span>
+<div class="post-share-buttons goog-inline-block">
+<a class="goog-inline-block share-button sb-email" href="https://www.blogger.com/share-post.g?blogID=4187204636885547533&amp;postID=3669110001257956546&amp;target=email" target="_blank" title="Gửi email bài đăng này"><span class="share-button-link-text">Gửi email bài đăng này</span></a><a class="goog-inline-block share-button sb-blog" href="https://www.blogger.com/share-post.g?blogID=4187204636885547533&amp;postID=3669110001257956546&amp;target=blog" onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=270,width=475&quot;); return false;" target="_blank" title="BlogThis!"><span class="share-button-link-text">BlogThis!</span></a><a class="goog-inline-block share-button sb-twitter" href="https://www.blogger.com/share-post.g?blogID=4187204636885547533&amp;postID=3669110001257956546&amp;target=twitter" target="_blank" title="Chia sẻ lên X"><span class="share-button-link-text">Chia sẻ lên X</span></a><a class="goog-inline-block share-button sb-facebook" href="https://www.blogger.com/share-post.g?blogID=4187204636885547533&amp;postID=3669110001257956546&amp;target=facebook" onclick="window.open(this.href, &quot;_blank&quot;, &quot;height=430,width=640&quot;); return false;" target="_blank" title="Chia sẻ lên Facebook"><span class="share-button-link-text">Chia sẻ lên Facebook</span></a><a class="goog-inline-block share-button sb-pinterest" href="https://www.blogger.com/share-post.g?blogID=4187204636885547533&amp;postID=3669110001257956546&amp;target=pinterest" target="_blank" title="Chia sẻ lên Pinterest"><span class="share-button-link-text">Chia sẻ lên Pinterest</span></a>
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<span class="post-labels">
+Labels:
+<a href="https://www.tranvanbinh.vn/search/label/12c" rel="tag">12c</a>,
+<a href="https://www.tranvanbinh.vn/search/label/12c%20%3E%20Admin" rel="tag">12c &gt; Admin</a>,
+<a href="https://www.tranvanbinh.vn/search/label/CDB" rel="tag">CDB</a>,
+<a href="https://www.tranvanbinh.vn/search/label/Multitenant" rel="tag">Multitenant</a>
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3">
+<span class="post-location">
+</span>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+</div>
+</div>
+
+        </div></div>
+      
+</div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="https://www.tranvanbinh.vn/2021/08/oracle-database-khung-thi-backup-nhu-nao.html" id="Blog1_blog-pager-newer-link" title="Bài đăng Mới hơn">Bài đăng Mới hơn</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="https://www.tranvanbinh.vn/2021/08/cau-hinh-thay-oi-tham-so-instance.html" id="Blog1_blog-pager-older-link" title="Bài đăng Cũ hơn">Bài đăng Cũ hơn</a>
+</span>
+<a class="home-link" href="https://www.tranvanbinh.vn/">Trang chủ</a>
+</div>
+<div class="clear"></div>
+<div class="post-feeds">
+</div>
+</div><div class="widget PopularPosts" data-version="1" id="PopularPosts1">
+<b><h2>ĐỌC NHIỀU</h2></b>
+<div class="widget-content popular-posts">
+<ul>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="https://www.tranvanbinh.vn/2020/01/huong-dan-su-dung-cong-cu-oracle-sql.html" target="_blank">
+<img alt="" border="0" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/8.PNG">
+</a>
+</div>
+<div class="item-title"><a href="https://www.tranvanbinh.vn/2020/01/huong-dan-su-dung-cong-cu-oracle-sql.html">Hướng dẫn cài đặt, sử dụng công cụ Oracle SQL Developer để làm việc với Oracle Database</a></div>
+<div class="item-snippet"> Oracle SQL Developer là phần mềm do chính hãng Oracle phát triển. Bạn có thể download phần mềm này từ đây hoặc từ link của Oracle &nbsp; tại đây...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/khai-giang-khoa-hoc-oracle-dba-z.html" target="_blank">
+<img alt="" border="0" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/unnamed.jpg">
+</a>
+</div>
+<div class="item-title"><a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/khai-giang-khoa-hoc-oracle-dba-z.html">🚀🚀🚀 KHÓA HỌC ONLINE COACHING "ORACLE DBA A-Z ENTERPRISE" (OAZ), HOTLINE 090.29.12.888 🚀🚀🚀</a></div>
+<div class="item-snippet"> Trước đây ai có tiền là 'vua', nhưng bây giờ ' Data is King ', thực sự data (dữ liệu) được coi là "trái tim của doanh ...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="https://www.tranvanbinh.vn/2020/02/chuong-2-cac-thanh-phan-kien-truc.html" target="_blank">
+<img alt="" border="0" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/unnamed(1).jpg">
+</a>
+</div>
+<div class="item-title"><a href="https://www.tranvanbinh.vn/2020/02/chuong-2-cac-thanh-phan-kien-truc.html">HỌC ORACLE DATABASE CƠ BẢN TỪ A-Z - BÀI 2: CÁC THÀNH PHẦN KIẾN TRÚC ORACLE DATABASE A-Z</a></div>
+<div class="item-snippet">Oracle server là một hệ thống quản trị cơ sở dữ liệu đối tượng-quan hệ cho phép quản lý thông tin một cách toàn diện. Oracle server bao gồm ...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="https://www.tranvanbinh.vn/2021/01/cai-at-oracle-database-19c-tren-oracle.html" target="_blank">
+<img alt="" border="0" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/unnamed(2).jpg">
+</a>
+</div>
+<div class="item-title"><a href="https://www.tranvanbinh.vn/2021/01/cai-at-oracle-database-19c-tren-oracle.html">Cài đặt Oracle Database 19c trên Oracle Linux 7 (OL7) bằng giao diện GUI hoặc bằng silent mode</a></div>
+<div class="item-snippet">Bài viết này mô tả việc cài đặt Oracle Database 19c 64-bit trên Oracle Linux 7 (OL7) 64-bit bằng giao diện GUI hoặc bằng silent mode</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="https://www.tranvanbinh.vn/2020/11/quan-ly-quyen-trong-oracle-database.html" target="_blank">
+<img alt="" border="0" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/unnamed(3).jpg">
+</a>
+</div>
+<div class="item-title"><a href="https://www.tranvanbinh.vn/2020/11/quan-ly-quyen-trong-oracle-database.html">Quản lý Quyền trong Oracle Database</a></div>
+<div class="item-snippet">Mục đích:&nbsp; Quản lý Quyền trong Oracle Database</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+</ul>
+<div class="clear"></div>
+</div>
+</div></div>
+</div>
+</div>
+<div class="column-left-outer">
+<div class="column-left-inner">
+<aside>
+</aside>
+</div>
+</div>
+<div class="column-right-outer">
+<div class="column-right-inner">
+<aside>
+<div class="sidebar section" id="sidebar-right-1"><div class="widget BlogSearch" data-version="1" id="BlogSearch1">
+<h2 class="title">Tìm kiếm</h2>
+<div class="widget-content">
+<div id="BlogSearch1_form">
+<form action="https://www.tranvanbinh.vn/search" class="gsc-search-box" target="_top">
+<table cellpadding="0" cellspacing="0" class="gsc-search-box">
+<tbody>
+<tr>
+<td class="gsc-input">
+<input autocomplete="off" class="gsc-input" name="q" size="10" title="search" type="text" value="">
+</td>
+<td class="gsc-search-button">
+<input class="gsc-search-button" title="search" type="submit" value="Tìm kiếm">
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<div class="clear"></div>
+</div><div class="widget Stats" data-version="1" id="Stats1">
+<h2>Lượt xem</h2>
+<div class="widget-content">
+<div id="Stats1_content" style="">
+<script src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/loader(1).js.tải xuống" type="text/javascript"></script>
+<span id="Stats1_sparklinespan" style="display:inline-block; width:75px; height:30px"><div style="position: relative;"><div dir="ltr" style="position: relative; width: 75px; height: 30px;"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;" aria-label="A chart."><svg width="75" height="30" aria-label="A chart." style="overflow: hidden;"><defs id="_ABSTRACT_RENDERER_ID_0"><clippath id="_ABSTRACT_RENDERER_ID_1"><rect x="0" y="0" width="75" height="30"></rect></clippath></defs><rect x="0" y="0" width="75" height="30" stroke="none" stroke-width="0" fill-opacity="0.1" fill="#000000"></rect><g><rect x="0" y="0" width="75" height="30" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g clip-path="url(https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html#_ABSTRACT_RENDERER_ID_1)"><g><g><path d="M0.5,29.5L0.5,29.5L0.5,29.21L3.0517241379310347,28.92L5.603448275862069,28.92L8.155172413793103,28.92L10.706896551724139,28.92L13.258620689655174,28.92L15.810344827586208,28.92L18.362068965517242,29.21L20.913793103448278,29.21L23.465517241379313,21.67L26.01724137931035,28.63L28.56896551724138,28.92L31.120689655172416,18.48L33.67241379310345,15.290000000000001L36.224137931034484,9.200000000000003L38.77586206896552,3.400000000000002L41.327586206896555,0.5000000000000036L43.87931034482759,26.6L46.431034482758626,28.34L48.98275862068966,28.63L51.5344827586207,28.63L54.08620689655173,28.92L56.63793103448276,28.92L59.1896551724138,28.63L61.74137931034483,28.63L64.29310344827587,28.63L66.8448275862069,28.63L69.39655172413794,28.63L71.94827586206897,28.92L74.5,29.5L74.5,29.5Z" stroke="none" stroke-width="0" fill-opacity="0.3" fill="#202020"></path></g></g><g><rect x="0" y="0" width="1" height="30" stroke="none" stroke-width="0" fill="#333333"></rect><rect x="0" y="29" width="75" height="1" stroke="none" stroke-width="0" fill="#333333"></rect></g><g><path d="M0.5,29.21L3.0517241379310347,28.92L5.603448275862069,28.92L8.155172413793103,28.92L10.706896551724139,28.92L13.258620689655174,28.92L15.810344827586208,28.92L18.362068965517242,29.21L20.913793103448278,29.21L23.465517241379313,21.67L26.01724137931035,28.63L28.56896551724138,28.92L31.120689655172416,18.48L33.67241379310345,15.290000000000001L36.224137931034484,9.200000000000003L38.77586206896552,3.400000000000002L41.327586206896555,0.5000000000000036L43.87931034482759,26.6L46.431034482758626,28.34L48.98275862068966,28.63L51.5344827586207,28.63L54.08620689655173,28.92L56.63793103448276,28.92L59.1896551724138,28.63L61.74137931034483,28.63L64.29310344827587,28.63L66.8448275862069,28.63L69.39655172413794,28.63L71.94827586206897,28.92L74.5,29.5" stroke="#202020" stroke-width="2" fill-opacity="1" fill="none"></path></g></g><g></g></g><g></g></svg><div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>2</td></tr><tr><td>2</td><td>2</td></tr><tr><td>3</td><td>2</td></tr><tr><td>4</td><td>2</td></tr><tr><td>5</td><td>2</td></tr><tr><td>6</td><td>2</td></tr><tr><td>7</td><td>1</td></tr><tr><td>8</td><td>1</td></tr><tr><td>9</td><td>27</td></tr><tr><td>10</td><td>3</td></tr><tr><td>11</td><td>2</td></tr><tr><td>12</td><td>38</td></tr><tr><td>13</td><td>49</td></tr><tr><td>14</td><td>70</td></tr><tr><td>15</td><td>90</td></tr><tr><td>16</td><td>100</td></tr><tr><td>17</td><td>10</td></tr><tr><td>18</td><td>4</td></tr><tr><td>19</td><td>3</td></tr><tr><td>20</td><td>3</td></tr><tr><td>21</td><td>2</td></tr><tr><td>22</td><td>2</td></tr><tr><td>23</td><td>3</td></tr><tr><td>24</td><td>3</td></tr><tr><td>25</td><td>3</td></tr><tr><td>26</td><td>3</td></tr><tr><td>27</td><td>3</td></tr><tr><td>28</td><td>2</td></tr><tr><td>29</td><td>0</td></tr></tbody></table></div></div></div><div aria-hidden="true" style="display: none; position: absolute; top: 40px; left: 85px; white-space: nowrap; font-family: Arial; font-size: 6px; font-weight: bold;"></div><div></div></div></span>
+<span class="counter-wrapper text-counter-wrapper" id="Stats1_totalCount">2,543,824</span>
+<div class="clear"></div>
+</div>
+</div>
+</div><div class="widget HTML" data-version="1" id="HTML1">
+<h2 class="title">Fanpage</h2>
+<div class="widget-content">
+<iframe src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/page.html" width="220" height="120" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML7">
+<h2 class="title">KHÓA HỌC ORACLE DBA A-Z</h2>
+<div class="widget-content">
+<a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/khai-giang-khoa-hoc-oracle-dba-z.html">
+<img src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/khai-giang-khoa-hoc-oracle-dba-z.html">
+</a>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML8">
+<h2 class="title">KHÓA HỌC ONLINE</h2>
+<div class="widget-content">
+Liên hệ Zalo 090.29.12.888
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML10">
+<h2 class="title">DỊCH VỤ DATABASE</h2>
+<div class="widget-content">
+<a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/dich-vu-oracle-database.html">
+<img src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/dich-vu-oracle-database.html">
+</a>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML9">
+<h2 class="title">DUMP THI OCP 2019</h2>
+<div class="widget-content">
+Zalo 090.29.12888
+</div>
+<div class="clear"></div>
+</div><div class="widget FeaturedPost" data-version="1" id="FeaturedPost1">
+<h2 align="justify" class="title">BÀI VIẾT MỚI</h2>
+<div align="justify" class="post-summary">
+<h3><a href="https://www.tranvanbinh.vn/2026/01/script-gen-partition-theo-ngay-trong.html">Script gen partition theo ngày trong Oracle Database</a></h3>
+<p>
+/*&nbsp;&nbsp;2.3.GEN PARTITION THEO NGAY */
+</p>
+</div>
+<style type="text/css">
+    .image {
+      width: 100%;
+    }
+  </style>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML6">
+<h2 class="title">YOUTUBE</h2>
+<div class="widget-content">
+<iframe width="220" height="220" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/dg9tpmzmlNw.html" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML5">
+<h2 class="title">Cộng đồng DBA Việt Nam</h2>
+<div class="widget-content">
+<a href="https://www.facebook.com/groups/DBAVietNam/">Join "DBA Việt Nam"</a>
+</div>
+<div class="clear"></div>
+</div><div class="widget PopularPosts" data-version="1" id="PopularPosts2">
+<h2>Đọc nhiều</h2>
+<div class="widget-content popular-posts">
+<ul>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/01/huong-dan-su-dung-cong-cu-oracle-sql.html"><b>Hướng dẫn cài đặt, sử dụng công cụ Oracle SQL Developer để làm việc với Oracle Database</b></a></div>
+<div align="justify" class="item-snippet"> Oracle SQL Developer là phần mềm do chính hãng Oracle phát triển. Bạn có thể download phần mềm này từ đây hoặc từ link của Oracle &nbsp; tại đây...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/khai-giang-khoa-hoc-oracle-dba-z.html"><b>🚀🚀🚀 KHÓA HỌC ONLINE COACHING "ORACLE DBA A-Z ENTERPRISE" (OAZ), HOTLINE 090.29.12.888 🚀🚀🚀</b></a></div>
+<div align="justify" class="item-snippet"> Trước đây ai có tiền là 'vua', nhưng bây giờ ' Data is King ', thực sự data (dữ liệu) được coi là "trái tim của doanh ...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/02/chuong-2-cac-thanh-phan-kien-truc.html"><b>HỌC ORACLE DATABASE CƠ BẢN TỪ A-Z - BÀI 2: CÁC THÀNH PHẦN KIẾN TRÚC ORACLE DATABASE A-Z</b></a></div>
+<div align="justify" class="item-snippet">Oracle server là một hệ thống quản trị cơ sở dữ liệu đối tượng-quan hệ cho phép quản lý thông tin một cách toàn diện. Oracle server bao gồm ...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2021/01/cai-at-oracle-database-19c-tren-oracle.html"><b>Cài đặt Oracle Database 19c trên Oracle Linux 7 (OL7) bằng giao diện GUI hoặc bằng silent mode</b></a></div>
+<div align="justify" class="item-snippet">Bài viết này mô tả việc cài đặt Oracle Database 19c 64-bit trên Oracle Linux 7 (OL7) 64-bit bằng giao diện GUI hoặc bằng silent mode</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/11/quan-ly-quyen-trong-oracle-database.html"><b>Quản lý Quyền trong Oracle Database</b></a></div>
+<div align="justify" class="item-snippet">Mục đích:&nbsp; Quản lý Quyền trong Oracle Database</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2022/02/huong-dan-download-va-cai-at-securecrt.html"><b>Hướng dẫn Download và cài đặt SecureCRT</b></a></div>
+<div align="justify" class="item-snippet">Giới thiệu phần mềm: VanDyke SecureCRT and SecureFX &nbsp;là một ứng dụng&nbsp; chuyển tập tin &nbsp;an toàn, linh hoạt với giao diện trực quan cung cấp tr...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/01/toad-cong-cu-cho-oracle-dba-tot-nhat.html"><b>TOAD - Công cụ cho Oracle DBA TỐT NHẤT</b></a></div>
+<div align="justify" class="item-snippet"> TOAD là công cụ cho Oracle DBA TỐT NHẤT với nhiều tính năng:  - Quản trị trực quan các thành phần: Tablespace, Monitor, Tunning, tạo các ob...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2022/04/oracle-plsql-ham-substr.html"><b>Oracle / PLSQL: Hàm SUBSTR</b></a></div>
+<div align="justify" class="item-snippet">Hướng dẫn này giải thích cách sử dụng hàm SUBSTR &nbsp;của Oracle&nbsp; P/SQL&nbsp; với cú pháp và ví dụ. Miêu tả Hàm SUBSTR của Oracle P/SQL cho phép bạn ...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/01/huong-dan-thi-cac-chung-chi-cua-oracle.html"><b>Hướng dẫn thi các chứng chỉ của Oracle</b></a></div>
+<div align="justify" class="item-snippet">Những người có chứng chỉ của Oracle hiện nay đã phổ biến hơn, mặc dù số lượng vẫn thấp hơn những chứng chỉ khác của CISCO hay MICROSOFT rất ...</div>
+</li>
+<li>
+<div align="justify" class="item-title"><a href="https://www.tranvanbinh.vn/2020/02/tutorial-dba-co-ban-chuong-5-quan-tri.html"><b>HỌC ORACLE DATABASE CƠ BẢN TỪ A-Z - BÀI 5: QUẢN TRỊ ORACLE DATABASE</b></a></div>
+<div align="justify" class="item-snippet">       5.1. PHÂN LOẠI USERS    Oracle là một hệ quản trị cơ sở dữ liệu lớn, chạy trên môi trường mạng. Để vận hành hệ thống được tốt, có thể...</div>
+</li>
+</ul>
+<div class="clear"></div>
+</div>
+</div><div class="widget HTML" data-version="1" id="HTML4">
+<div class="widget-content">
+<div class="zalome"><a href="https://zalo.me/0902912888" target="_blank">
+<img alt="icon zalo" src="https://shopswhite.com/wp-content/uploads/2019/06/zalo-icon.png">
+</a></div>
+<style>
+@media (max-width: 576px){
+.fb-customerchat{display:none;}
+}
+/*.zalo-chat-widget {*/
+/*    left: 0!important;*/
+/*}*/
+.zalome {
+    position: fixed;
+    bottom: 15px;
+    right: 90px;
+    margin: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+  background-color: #004A7F;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;  
+  padding: -10px -10px;  
+  text-align: center;  
+  text-decoration: none;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #004A7F; -webkit-box-shadow: 0 0 3px #004A7F; }
+  50% { background-color: #0094FF; -webkit-box-shadow: 0 0 10px #0094FF; }
+  100% { background-color: #004A7F; -webkit-box-shadow: 0 0 3px #004A7F; }
+}
+@-moz-keyframes glowing {
+  0% { background-color: #004A7F; -moz-box-shadow: 0 0 3px #004A7F; }
+  50% { background-color: #0094FF; -moz-box-shadow: 0 0 10px #0094FF; }
+  100% { background-color: #004A7F; -moz-box-shadow: 0 0 3px #004A7F; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #004A7F; box-shadow: 0 0 3px #004A7F; }
+  50% { background-color: #0094FF; box-shadow: 0 0 10px #0094FF; }
+  100% { background-color: #004A7F; box-shadow: 0 0 3px #004A7F; }
+}
+@keyframes glowing {
+  0% { background-color: #004A7F; box-shadow: 0 0 3px #004A7F; }
+  50% { background-color: #0094FF; box-shadow: 0 0 10px #0094FF; }
+  100% { background-color: #004A7F; box-shadow: 0 0 3px #004A7F; }
+}
+.zalome {
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+
+}
+</style>
+</div>
+<div class="clear"></div>
+</div><div class="widget HTML" data-version="1" id="HTML3">
+<div class="widget-content">
+<!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v9.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat" attribution="setup_tool" page_id="111627223593506">
+      </div>
+</div>
+<div class="clear"></div>
+</div><div class="widget BlogArchive" data-version="1" id="BlogArchive1">
+<h2>Blog</h2>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2026/">
+2026
+</a>
+<span class="post-count" dir="ltr">(189)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2026/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(189)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/">
+2025
+</a>
+<span class="post-count" dir="ltr">(1010)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(54)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(159)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(435)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(162)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/07/">
+7
+</a>
+<span class="post-count" dir="ltr">(51)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(23)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(56)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/02/">
+2
+</a>
+<span class="post-count" dir="ltr">(38)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2025/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(19)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/">
+2024
+</a>
+<span class="post-count" dir="ltr">(71)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(26)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(15)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(18)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2024/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/">
+2023
+</a>
+<span class="post-count" dir="ltr">(715)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(26)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(9)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(48)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/07/">
+7
+</a>
+<span class="post-count" dir="ltr">(499)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(52)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(14)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(18)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/02/">
+2
+</a>
+<span class="post-count" dir="ltr">(21)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2023/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(20)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/">
+2022
+</a>
+<span class="post-count" dir="ltr">(514)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(11)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(192)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(47)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(55)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/07/">
+7
+</a>
+<span class="post-count" dir="ltr">(22)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(12)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(42)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(62)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/02/">
+2
+</a>
+<span class="post-count" dir="ltr">(53)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2022/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">
+
+        ▼&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/">
+2021
+</a>
+<span class="post-count" dir="ltr">(353)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(22)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(23)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(48)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">
+
+        ▼&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(28)</span>
+<ul class="posts">
+<li><a href="https://www.tranvanbinh.vn/2021/08/bi-quyet-khoi-phuc-du-lieu-oracle.html">BÍ QUYẾT KHÔI PHỤC DỮ LIỆU ORACLE DATABASE</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/oi-password-root-oracle-tren-may-chu.html">Đổi password root, oracle trên máy chủ Exadata</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/oracle-database-index-monitoring.html">Oracle Database index monitoring</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/qua-trinh-xu-ly-cau-lenh-sql-trong.html">Quá trình xử lý câu lệnh SQL trong Oracle DB</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/oracle-database-khung-thi-backup-nhu-nao.html">ORACLE DATABASE KHỦNG THÌ BACKUP NHƯ THẾ NÀO?</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html">Quản lý Tablespaces trong Container Database (CDB)...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/cau-hinh-thay-oi-tham-so-instance.html">Cấu hình, thay đổi tham số Instance Container Data...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/bat-va-tat-container-databases-cdb-va.html">Bật và tắt Container Databases (CDB) và Pluggable ...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/ket-noi-toi-container-databases-cdb-va.html">Kết nối tới Container Databases (CDB) và Pluggable...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/chuyen-oi-non-container-database-cdb.html">Chuyển đổi Non-Container Database (CDB) sang Plugg...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/tao-va-cau-hinh-container-database-cdb.html">Tạo và cấu hình Container Database (CDB) trong Ora...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/multitenant-tong-quan-ve-container.html">Multitenant : Tổng quan về Container Databases (CD...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/ham-syscontext.html">Hàm sys_context trong Oracle Database</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/bao-mat-trong-oracle-database-10g-11g.html">Bảo mật (Audit trail, FGA) trong Oracle Database 1...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/thay-oi-cau-hinh-scan-trong-oracle-11g.html">Thay đổi cấu hình SCAN trong Oracle 11g Release 2 RAC</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/chan-oan-cac-su-co-rac.html">Chẩn đoán các sự cố Oracle RAC</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/xoa-1-instance-tu-oracle-rac-database.html">Xóa 1 instance từ Oracle RAC Database</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/xoa-cai-at-grid-infrastruture-khi-cai.html">Xóa cài đặt Grid Infrastruture khi cài đặt lỗi</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/che-o-archivelog-trong-oracle-rac.html">Chế độ Archivelog trong Oracle RAC</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/chuyen-schema-tu-oracle-database-11g.html">Chuyển Schema từ Oracle Database 11G sang 12c/19c PDB</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/cai-at-cau-hinh-quan-tri-oracle-data.html">Cài đặt, cấu hình, quản trị Oracle Data Guard Phys...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/kiem-tra-bat-tat-cdb-pdb-voi-sqlplus.html">Kiểm tra, bật, tắt CDB, PDB với SQL*Plus trong Ora...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/khac-phuc-loi-ora-01111-name-for-data.html">OK_Khắc phục lỗi ORA-01111: Name For Data File Is ...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/tu-ong-kill-uer-ung-dung-khi-vuot-qua.html">Tự động kill uer ứng dụng khi vượt quá ngưỡng sess...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/recovery-manager-failed-to-restore.html">“Recovery Manager Failed to Restore Datafiles” – T...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/bat-database-khi-mat-toan-bo-online.html">Bật database khi mất toàn bộ online redo log</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/su-dung-csi-uoc-oracle-cung-cap-e-truy.html">Sử dụng CSI được Oracle cung cấp để truy cập kho t...</a></li>
+<li><a href="https://www.tranvanbinh.vn/2021/08/kien-truc-oracle-dataguard-va-cac.html">Kiến trúc Oracle Dataguard và các Background proce...</a></li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/07/">
+7
+</a>
+<span class="post-count" dir="ltr">(17)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(18)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(40)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(28)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(22)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/02/">
+2
+</a>
+<span class="post-count" dir="ltr">(26)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2021/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(78)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/">
+2020
+</a>
+<span class="post-count" dir="ltr">(320)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(81)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(53)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(14)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(24)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/07/">
+7
+</a>
+<span class="post-count" dir="ltr">(19)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(16)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/03/">
+3
+</a>
+<span class="post-count" dir="ltr">(21)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/02/">
+2
+</a>
+<span class="post-count" dir="ltr">(39)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2020/01/">
+1
+</a>
+<span class="post-count" dir="ltr">(49)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2019/">
+2019
+</a>
+<span class="post-count" dir="ltr">(58)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2019/12/">
+12
+</a>
+<span class="post-count" dir="ltr">(35)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2019/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(15)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2019/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2019/06/">
+6
+</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/">
+2018
+</a>
+<span class="post-count" dir="ltr">(42)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/11/">
+11
+</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/10/">
+10
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/09/">
+9
+</a>
+<span class="post-count" dir="ltr">(11)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/08/">
+8
+</a>
+<span class="post-count" dir="ltr">(27)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2018/05/">
+5
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2017/">
+2017
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+        ►&nbsp;
+      
+</span>
+</a>
+<a class="post-count-link" href="https://www.tranvanbinh.vn/2017/04/">
+4
+</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div></div>
+</aside>
+</div>
+</div>
+</div>
+<div style="clear: both"></div>
+<!-- columns -->
+</div>
+<!-- main -->
+</div>
+</div>
+<div class="main-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+<footer>
+<div class="footer-outer">
+<div class="footer-cap-top cap-top">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+<div class="fauxborder-left footer-fauxborder-left">
+<div class="fauxborder-right footer-fauxborder-right"></div>
+<div class="region-inner footer-inner">
+<div class="foot no-items section" id="footer-1"></div>
+<!-- outside of the include in order to lock Attribution widget -->
+<div class="foot no-items section" id="footer-3" name="Chân trang"></div>
+</div>
+</div>
+<div class="footer-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</footer>
+<!-- content -->
+</div>
+</div>
+<div class="content-cap-bottom cap-bottom">
+<div class="cap-left"></div>
+<div class="cap-right"></div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    window.setTimeout(function() {
+        document.body.className = document.body.className.replace('loading', '');
+      }, 10);
+  </script>
+<!-- Start of BinhTV phân trang -->
+<script type="text/javascript">
+    var postperpage=10;
+    var numshowpage=5;
+    var upPageWord ='Quay lại';
+    var downPageWord ='Tiếp theo';
+    var urlactivepage=location.href;
+    var home_page="/";
+    </script>
+<script type="text/javascript">
+    //<![CDATA[
+    var nopage;var jenis;var nomerhal;var lblname1;halamanblogger();function loophalaman(banyakdata){var html='';nomerkiri=parseInt(numshowpage/2);if(nomerkiri==numshowpage-nomerkiri){numshowpage=nomerkiri*2+1}mulai=nomerhal-nomerkiri;if(mulai<1)mulai=1;maksimal=parseInt(banyakdata/postperpage)+1;if(maksimal-1==banyakdata/postperpage)maksimal=maksimal-1;akhir=mulai+numshowpage-1;if(akhir>maksimal)akhir=maksimal;html+="<span class='showpageOf'>Trang "+nomerhal+'/'+maksimal+"</span>";var prevnomer=parseInt(nomerhal)-1;if(nomerhal>1){if(nomerhal==2){if(jenis=="page"){html+='<span class="showpage"><a href="'+home_page+'">'+upPageWord+'</a></span>'}else{html+='<span class="showpageNum"><a href="/search/label/'+lblname1+'?&max-results='+postperpage+'">'+upPageWord+'</a></span>'}}else{if(jenis=="page"){html+='<span class="showpageNum"><a href="#" onclick="redirectpage('+prevnomer+');return false">'+upPageWord+'</a></span>'}else{html+='<span class="showpageNum"><a href="#" onclick="redirectlabel('+prevnomer+');return false">'+upPageWord+'</a></span>'}}}if(mulai>1){if(jenis=="page"){html+='<span class="showpageNum"><a href="'+home_page+'">1</a></span>'}else{html+='<span class="showpageNum"><a href="/search/label/'+lblname1+'?&max-results='+postperpage+'">1</a></span>'}}if(mulai>2){html+='  '}for(var jj=mulai;jj<=akhir;jj++){if(nomerhal==jj){html+='<span class="showpagePoint">'+jj+'</span>'}else if(jj==1){if(jenis=="page"){html+='<span class="showpageNum"><a href="'+home_page+'">1</a></span>'}else{html+='<span class="showpageNum"><a href="/search/label/'+lblname1+'?&max-results='+postperpage+'">1</a></span>'}}else{if(jenis=="page"){html+='<span class="showpageNum"><a href="#" onclick="redirectpage('+jj+');return false">'+jj+'</a></span>'}else{html+='<span class="showpageNum"><a href="#" onclick="redirectlabel('+jj+');return false">'+jj+'</a></span>'}}}if(akhir<maksimal-1){html+=''}if(akhir<maksimal){if(jenis=="page"){html+='<span class="showpageNum"><a href="#" onclick="redirectpage('+maksimal+');return false">'+maksimal+'</a></span>'}else{html+='<span class="showpageNum"><a href="#" onclick="redirectlabel('+maksimal+');return false">'+maksimal+'</a></span>'}}var nextnomer=parseInt(nomerhal)+1;if(nomerhal<maksimal){if(jenis=="page"){html+='<span class="showpageNum"><a href="#" onclick="redirectpage('+nextnomer+');return false">'+downPageWord+'</a></span>'}else{html+='<span class="showpageNum"><a href="#" onclick="redirectlabel('+nextnomer+');return false">'+downPageWord+'</a></span>'}}var pageArea=document.getElementsByName("pageArea");var blogPager=document.getElementById("blog-pager");for(var p=0;p<pageArea.length;p++){pageArea[p].innerHTML=html}if(pageArea&&pageArea.length>0){html=''}if(blogPager){blogPager.innerHTML=html}}function hitungtotaldata(root){var feed=root.feed;var totaldata=parseInt(feed.openSearch$totalResults.$t,10);loophalaman(totaldata)}function halamanblogger(){var thisUrl=urlactivepage;if(thisUrl.indexOf("/search/label/")!=-1){if(thisUrl.indexOf("?updated-max")!=-1){lblname1=thisUrl.substring(thisUrl.indexOf("/search/label/")+14,thisUrl.indexOf("?updated-max"))}else{lblname1=thisUrl.substring(thisUrl.indexOf("/search/label/")+14,thisUrl.indexOf("?&max"))}}if(thisUrl.indexOf("?q=")==-1&&thisUrl.indexOf(".html")==-1){if(thisUrl.indexOf("/search/label/")==-1){jenis="page";if(urlactivepage.indexOf("#PageNo=")!=-1){nomerhal=urlactivepage.substring(urlactivepage.indexOf("#PageNo=")+8,urlactivepage.length)}else{nomerhal=1}document.write("<script src=\""+home_page+"feeds/posts/summary?max-results=1&alt=json-in-script&callback=hitungtotaldata\"><\/script>")}else{jenis="label";if(thisUrl.indexOf("&max-results=")==-1){postperpage=20}if(urlactivepage.indexOf("#PageNo=")!=-1){nomerhal=urlactivepage.substring(urlactivepage.indexOf("#PageNo=")+8,urlactivepage.length)}else{nomerhal=1}document.write('<script src="'+home_page+'feeds/posts/summary/-/'+lblname1+'?alt=json-in-script&callback=hitungtotaldata&max-results=1" ><\/script>')}}}function redirectpage(numberpage){jsonstart=(numberpage-1)*postperpage;nopage=numberpage;var nBody=document.getElementsByTagName('head')[0];var newInclude=document.createElement('script');newInclude.type='text/javascript';newInclude.setAttribute("src",home_page+"feeds/posts/summary?start-index="+jsonstart+"&max-results=1&alt=json-in-script&callback=finddatepost");nBody.appendChild(newInclude)}function redirectlabel(numberpage){jsonstart=(numberpage-1)*postperpage;nopage=numberpage;var nBody=document.getElementsByTagName('head')[0];var newInclude=document.createElement('script');newInclude.type='text/javascript';newInclude.setAttribute("src",home_page+"feeds/posts/summary/-/"+lblname1+"?start-index="+jsonstart+"&max-results=1&alt=json-in-script&callback=finddatepost");nBody.appendChild(newInclude)}function finddatepost(root){post=root.feed.entry[0];var timestamp1=post.published.$t.substring(0,19)+post.published.$t.substring(23,29);var timestamp=encodeURIComponent(timestamp1);if(jenis=="page"){var alamat="/search?updated-max="+timestamp+"&max-results="+postperpage+"#PageNo="+nopage}else{var alamat="/search/label/"+lblname1+"?updated-max="+timestamp+"&max-results="+postperpage+"#PageNo="+nopage}location.href=alamat}
+    //]]>
+    </script>
+<!-- End of BinhTV -->
+<div class="fb-page" data-adapt-container-width="true" data-height="" data-hide-cover="false" data-href="https://www.facebook.com/tranvanbinh.vn" data-show-facepile="true" data-small-header="false" data-tabs="timeline" data-width=""><blockquote cite="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/tranvanbinh.vn" class="fb-xfbml-parse-ignore"><a href="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/tranvanbinh.vn">Trần Văn Bình - Oracle Database Master</a></blockquote></div>
+<!--CODE PHAO HOA TET-->
+<script src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/new-year.js.tải xuống" type="text/javascript"></script>
+<!--END-->
+
+<script type="text/javascript" src="./Quản lý Tablespaces trong Container Database (CDB) và Pluggable Database (PDB) trong Oracle Database 12c_files/2028843038-widgets.js.tải xuống"></script>
+<script type="text/javascript">
+window['__wavt'] = 'AOuZoY4p74TMmuLtBMpN8UDjBogTxNPxXg:1769936780617';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d4187204636885547533','//www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html','4187204636885547533');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '4187204636885547533', 'title': 'TR\u1ea6N V\u0102N B\xccNH MASTER', 'url': 'https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html', 'canonicalUrl': 'https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html', 'homepageUrl': 'https://www.tranvanbinh.vn/', 'searchUrl': 'https://www.tranvanbinh.vn/search', 'canonicalHomepageUrl': 'https://www.tranvanbinh.vn/', 'blogspotFaviconUrl': 'https://www.tranvanbinh.vn/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': true, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': 'UA-2912-1', 'encoding': 'UTF-8', 'locale': 'vi', 'localeUnderscoreDelimited': 'vi', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'isDynamicViewsAvailable': true, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22TR\u1ea6N V\u0102N B\xccNH MASTER - Atom\x22 href\x3d\x22https://www.tranvanbinh.vn/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22TR\u1ea6N V\u0102N B\xccNH MASTER - RSS\x22 href\x3d\x22https://www.tranvanbinh.vn/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22TR\u1ea6N V\u0102N B\xccNH MASTER - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/4187204636885547533/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22TR\u1ea6N V\u0102N B\xccNH MASTER - Atom\x22 href\x3d\x22https://www.tranvanbinh.vn/feeds/3669110001257956546/comments/default\x22 /\x3e\n', 'meTag': '', 'adsenseClientId': 'ca-pub-4935922293118705', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'adsenseAutoAds': false, 'boqCommentIframeForm': true, 'loginRedirectParam': '', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/488fc340cdb1c4a9', 'plusOneApiSrc': 'https://apis.google.com/js/platform.js', 'disableGComments': true, 'interstitialAccepted': false, 'sharing': {'platforms': [{'name': 'Nh\u1eadn \u0111\u01b0\u1eddng li\xean k\u1ebft', 'key': 'link', 'shareMessage': 'Nh\u1eadn \u0111\u01b0\u1eddng li\xean k\u1ebft', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Chia s\u1ebb v\u1edbi Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'X', 'key': 'twitter', 'shareMessage': 'Chia s\u1ebb v\u1edbi X', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Chia s\u1ebb v\u1edbi Pinterest', 'target': 'pinterest'}, {'name': 'Email', 'key': 'email', 'shareMessage': 'Email', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 0, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27vi\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': true, 'jumpLinkMessage': 'Read more \xbb', 'pageType': 'item', 'postId': '3669110001257956546', 'pageName': 'Qu\u1ea3n l\xfd Tablespaces trong Container Database (CDB) v\xe0 Pluggable Database (PDB) trong Oracle Database 12c', 'pageTitle': 'TR\u1ea6N V\u0102N B\xccNH MASTER: Qu\u1ea3n l\xfd Tablespaces trong Container Database (CDB) v\xe0 Pluggable Database (PDB) trong Oracle Database 12c', 'metaDescription': ''}}, {'name': 'features', 'data': {}}, {'name': 'messages', 'data': {'edit': 'Ch\u1ec9nh s\u1eeda', 'linkCopiedToClipboard': '\u0110\xe3 sao ch\xe9p \u0111\u01b0\u1eddng li\xean k\u1ebft v\xe0o b\u1ea3ng nh\u1edb t\u1ea1m!', 'ok': 'Ok', 'postLink': 'Li\xean k\u1ebft b\xe0i \u0111\u0103ng'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'T\xf9y ch\u1ec9nh', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'Qu\u1ea3n l\xfd Tablespaces trong Container Database (CDB) v\xe0 Pluggable Database (PDB) trong Oracle Database 12c', 'description': 'Trang Web ch\xednh th\u1ee9c c\u1ee7a Chuy\xean gia Tr\u1ea7n V\u0103n B\xecnh - Oracle Database Master', 'url': 'https://www.tranvanbinh.vn/2021/08/quan-ly-tablespaces-trong-container.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 3669110001257956546}}]);
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'crosscol-overflow', document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/2547341110-lbx__vi.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/828616780-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'main', document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogSearchView', new _WidgetInfo('BlogSearch1', 'sidebar-right-1', document.getElementById('BlogSearch1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_StatsView', new _WidgetInfo('Stats1', 'sidebar-right-1', document.getElementById('Stats1'), {'title': 'L\u01b0\u1ee3t xem', 'showGraphicalCounter': false, 'showAnimatedCounter': false, 'showSparkline': true, 'statsUrl': '//www.tranvanbinh.vn/b/stats?style\x3dBLACK_TRANSPARENT\x26timeRange\x3dALL_TIME\x26token\x3dAPq4FmB4OtC8uSX3W0jmRWjWi3IYrYVgazsTIJSB0GeEEYyud6F25tprT6WDb40qIcuerk2_NwXMqzD5Guhj_brfs0V1UY8wVg'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-right-1', document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML7', 'sidebar-right-1', document.getElementById('HTML7'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML8', 'sidebar-right-1', document.getElementById('HTML8'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML10', 'sidebar-right-1', document.getElementById('HTML10'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML9', 'sidebar-right-1', document.getElementById('HTML9'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeaturedPostView', new _WidgetInfo('FeaturedPost1', 'sidebar-right-1', document.getElementById('FeaturedPost1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML6', 'sidebar-right-1', document.getElementById('HTML6'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML5', 'sidebar-right-1', document.getElementById('HTML5'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts2', 'sidebar-right-1', document.getElementById('PopularPosts2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML4', 'sidebar-right-1', document.getElementById('HTML4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'sidebar-right-1', document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right-1', document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': '\u0110ang t\u1ea3i\x26hellip;'}, 'displayModeFull'));
+</script>
+
+</body></html>
