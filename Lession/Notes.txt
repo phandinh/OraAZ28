@@ -1,3 +1,5 @@
+##Bua Dau#### ###Note cua thay####
+
 DỰNG LAB, CÁC CÔNG CỤ CHUẨN BỊ HỌC 0. Vào nhóm Facebook: https://www.facebook.com/groups/oaz28 
 1. Mọi người dựng Oracle Database 19c trên máy ảo VMWARE theo link này: https://www.tranvanbinh.vn/2021/10/huong-dan-dung-may-ao-lab-oracle.html Lab+ bí kíp: https://drive.google.com/drive/folders/1xuc-trS839VjRoCyL4KvNGLIrafw6Ag_
 2. Ngoài ra cài đặt thêm các công cụ khác là Oracle Client 19c (bản 64 bit), TOAD, SecureSCT, Putty, WinSCP, tất cả công cụ ở đây: https://drive.google.com/drive/folders/18nIce5fRWOr1C4N8W8pkEzJno1nwqqpj?fbclid=IwAR24h-18-UCObS_xFxYusXSsoDRl6xrpi-zqCl3ccoQienFjIsflQDiyo-A 

@@ -1,0 +1,16 @@
+Lenh git clone
+
+https://xuanthulab.net/lenh-git-add-luu-thong-tin-chuan-bi-commit.html
+
+git clone https://github.com/phandinh/OraAZ28.git
+
+git add --all
+# Hoặc
+git add -A
+# Hoặc add [thư mục hiện tại]
+git add .
+
+git commit -m "update first file"
+
+git push -u origin master
+
