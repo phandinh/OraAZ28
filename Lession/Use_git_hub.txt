@@ -12,5 +12,5 @@ git add .
 
 git commit -m "update first file"
 
-git push -u origin master
+git push origin --all
 
